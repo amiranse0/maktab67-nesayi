@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/bootcamp/hws/git/hw/hw10/2_netflix/app/src/main/res/drawable/favorite_icon.xml" value="0.2115" />
+        <entry key="..\:/bootcamp/hws/git/hw/hw10/2_netflix/app/src/main/res/drawable/favorite_icon_choosed.xml" value="0.1405" />
+        <entry key="..\:/bootcamp/hws/git/hw/hw10/2_netflix/app/src/main/res/drawable/home_icon.xml" value="0.148" />
+        <entry key="..\:/bootcamp/hws/git/hw/hw10/2_netflix/app/src/main/res/drawable/ic_baseline_add_circle_24.xml" value="0.151" />
+        <entry key="..\:/bootcamp/hws/git/hw/hw10/2_netflix/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.2115" />
+        <entry key="..\:/bootcamp/hws/git/hw/hw10/2_netflix/app/src/main/res/drawable/ic_home_svgrepo_com.xml" value="0.2115" />
+        <entry key="..\:/bootcamp/hws/git/hw/hw10/2_netflix/app/src/main/res/drawable/netflix_logo.xml" value="0.2115" />
+        <entry key="..\:/bootcamp/hws/git/hw/hw10/2_netflix/app/src/main/res/drawable/profile_icon.xml" value="0.148" />
+        <entry key="..\:/bootcamp/hws/git/hw/hw10/2_netflix/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/bootcamp/hws/git/hw/hw10/2_netflix/app/src/main/res/layout/activity_net_flix.xml" value="0.20416666666666666" />
+        <entry key="..\:/bootcamp/hws/git/hw/hw10/2_netflix/app/src/main/res/layout/coming_soon_fragment.xml" value="0.10326086956521739" />
+        <entry key="..\:/bootcamp/hws/git/hw/hw10/2_netflix/app/src/main/res/layout/custom_view_coming_soon.xml" value="0.1" />
+        <entry key="..\:/bootcamp/hws/git/hw/hw10/2_netflix/app/src/main/res/layout/custom_view_soon.xml" value="0.10326086956521739" />
+        <entry key="..\:/bootcamp/hws/git/hw/hw10/2_netflix/app/src/main/res/layout/custome_view.xml" value="0.22" />
+        <entry key="..\:/bootcamp/hws/git/hw/hw10/2_netflix/app/src/main/res/layout/custome_view_home.xml" value="0.1" />
+        <entry key="..\:/bootcamp/hws/git/hw/hw10/2_netflix/app/src/main/res/layout/favorite_fragment.xml" value="0.1" />
+        <entry key="..\:/bootcamp/hws/git/hw/hw10/2_netflix/app/src/main/res/layout/home_fragment.xml" value="0.20416666666666666" />
+        <entry key="..\:/bootcamp/hws/git/hw/hw10/2_netflix/app/src/main/res/layout/profile_fragment.xml" value="0.22" />
+        <entry key="..\:/bootcamp/hws/git/hw/hw10/2_netflix/app/src/main/res/menu/nav_menu.xml" value="0.1" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

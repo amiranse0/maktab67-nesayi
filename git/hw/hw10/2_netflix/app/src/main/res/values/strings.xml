@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Netflix</string>
+    <string name="home">home</string>
+    <string name="coming_soon">coming soon</string>
+    <string name="favorite">favorite</string>
+    <string name="profile">profile</string>
+    <string name="apikey">aac9ff3c</string>
+</resources>
