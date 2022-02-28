@@ -31,6 +31,7 @@ class HomeRecyclerAdaptor(private var items:HomeViewModel, private val context: 
 
         Glide.with(context)
             .load(items.images[position].image)
+            .placeholder(R.drawable.image_icon)
             .into(holder.imageView)
 
         if (items.images[position].isFavorite) holder.iconView.setImageResource(R.drawable.favorite_icon_choosed)

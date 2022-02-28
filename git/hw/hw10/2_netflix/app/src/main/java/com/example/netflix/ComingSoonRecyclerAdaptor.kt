@@ -35,6 +35,7 @@ class ComingSoonRecyclerAdaptor(private var items:ComingSoonViewModel, private v
 
         Glide.with(context)
             .load(items.listNewMovies[position].poster)
+            .placeholder(R.drawable.image_icon)
             .into(holder.posterImageView)
 
         holder.titleTextView.text = items.listNewMovies[position].title

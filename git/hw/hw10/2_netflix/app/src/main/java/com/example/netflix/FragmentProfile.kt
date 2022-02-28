@@ -58,7 +58,7 @@ class FragmentProfile : Fragment(R.layout.profile_fragment) {
         }
 
         binding.profileRegisterButton.setOnClickListener {
-            
+
         }
     }
 
