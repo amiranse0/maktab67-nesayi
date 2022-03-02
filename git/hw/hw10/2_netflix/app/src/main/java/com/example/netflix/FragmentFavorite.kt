@@ -17,8 +17,6 @@ class FragmentFavorite:Fragment(R.layout.favorite_fragment) {
 
         binding = FavoriteFragmentBinding.bind(view)
 
-        Log.d("TAG", "in fragment: ${viewModel.getFavorites().size}")
-
         val recyclerView = binding.favoriteRecyclerView
         val recyclerAdaptor = FavoriteRecyclerAdaptor(viewModel, requireContext())
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)

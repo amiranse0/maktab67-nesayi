@@ -10,6 +10,4 @@ interface MovieService {
     @Query("y") year:String,
     @Query("apikey") api:String): Call<Movie>
 
-    @GET("https://www.omdbapi.com/?t=%20the%20godfather&y=1972&apikey=aac9ff3c")
-    fun test():Call<Movie>
 }

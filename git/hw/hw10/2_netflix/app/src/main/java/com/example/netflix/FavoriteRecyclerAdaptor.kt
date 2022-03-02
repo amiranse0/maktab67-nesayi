@@ -6,38 +6,41 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.netflix.FavoriteRecyclerAdaptor.ViewHolder
+import com.example.netflix.databinding.CustomFavouriteBinding
+import com.example.netflix.databinding.CustomeViewHomeBinding
 
-class FavoriteRecyclerAdaptor(private var items:HomeViewModel, private val context: Context)
+class FavoriteRecyclerAdaptor(private var viewModel:HomeViewModel, private val context: Context)
     :RecyclerView.Adapter<ViewHolder>() {
-    class ViewHolder(itemView:View):RecyclerView.ViewHolder(itemView) {
-        var imageView = itemView.findViewById<ImageView>(R.id.custom_iv)
-        var textView = itemView.findViewById<TextView>(R.id.custom_tv)
-        var iconView = itemView.findViewById<ImageView>(R.id.custom_icon)
+
+    inner class ViewHolder(private val binding: CustomFavouriteBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(newViewModel: HomeViewModel, pos:Int) {
+            binding.viewModel = newViewModel
+            binding.pos = pos
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.custome_view_home, parent, false)
+        val inflater = LayoutInflater.from(parent.context)
+
+        val view = CustomFavouriteBinding.inflate(inflater, parent, false)
 
         return ViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return items.getFavorites().size
-    }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
-        holder.textView.text = items.getFavorites()[position].name
-
-        Glide.with(context)
-            .load(items.getFavorites()[position].image)
-            .into(holder.imageView)
-
-        holder.iconView.setImageResource(R.drawable.favorite_icon_choosed)
+        holder.bind(viewModel,position)
     }
 
+    override fun getItemCount(): Int {
+        var count = 0
+        for(i in viewModel.getImages().value!!){
+            if (i.isFavorite) count++
+        }
+        return count
+    }
 }

@@ -20,33 +20,34 @@ class FragmentHome : Fragment(R.layout.home_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = HomeFragmentBinding.bind(view)
-        if (viewModel.images.size == 0) getPosters()
+
+        if (viewModel.getImages().value == null) viewModel.getPosters()
 
         recyclerHandler()
     }
 
-    private fun getPosters() {
-        for (item in MovieNames().movies) {
-            val movie = NetworkManager.service.getMovie(item.key, item.value, getString(R.string.apikey))
-            movie.enqueue(object : Callback<Movie> {
-                override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
-                    var image = MyImage(response.body()!!.Title, response.body()!!.Poster, false)
-                    viewModel.addNewImage(image)
-                }
-
-                override fun onFailure(call: Call<Movie>, t: Throwable) {
-                    Toast.makeText(requireContext(), t.message.toString(), Toast.LENGTH_SHORT)
-                        .show()
-                }
-            })
-        }
-    }
+//    private fun getPosters() {
+//        for (item in MovieNames().movies) {
+//            val movie = NetworkManager.service.getMovie(item.key, item.value, getString(R.string.apikey))
+//            movie.enqueue(object : Callback<Movie> {
+//                override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
+//                    viewModel.addNewImage(response)
+//                }
+//
+//                override fun onFailure(call: Call<Movie>, t: Throwable) {
+//                    Toast.makeText(requireContext(), t.message.toString(), Toast.LENGTH_SHORT)
+//                        .show()
+//                }
+//            })
+//        }
+//    }
 
     private fun recyclerHandler() {
         val recyclerView = binding.recyclerView
-        val recyclerAdaptor = HomeRecyclerAdaptor(viewModel, requireContext())
+        val recyclerAdaptor = HomeRecyclerAdaptor(viewModel, mutableListOf(),requireContext(), viewLifecycleOwner)
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
         recyclerView.adapter = recyclerAdaptor
+
     }
 
 }

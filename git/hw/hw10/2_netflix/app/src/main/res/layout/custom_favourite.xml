@@ -27,8 +27,8 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_margin="10dp"
-                app:loadImage="@{viewModel}"
-                app:pos="@{pos}"
+                app:loadImageFavourite="@{viewModel}"
+                app:posFavourite="@{pos}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -42,8 +42,6 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:padding="3dp"
-                onClickFavourite="@{viewModel}"
-                pos="@{pos}"
                 app:layout_constraintBottom_toBottomOf="@+id/custom_iv"
                 app:layout_constraintEnd_toEndOf="@+id/custom_iv" />
 
@@ -53,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:padding="5dp"
-                android:text="@{viewModel.images[pos].name}"
+                android:text="TextView"
                 android:gravity="center_horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
