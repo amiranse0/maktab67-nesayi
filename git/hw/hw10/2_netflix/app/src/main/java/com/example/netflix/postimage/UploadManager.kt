@@ -1,13 +1,12 @@
-package com.example.quizretrofit
+package com.example.netflix.postimage
 
-import okhttp3.ConnectionPool
+import com.example.netflix.getmoviewithretrofit.MovieService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
 
-object NetworkManager {
+object UploadManager {
 
     var httpLoggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
@@ -17,11 +16,11 @@ object NetworkManager {
         .addInterceptor(httpLoggingInterceptor)
         .build()
 
-    private var retrofit: Retrofit = Retrofit.Builder()
+    private var retrofit = Retrofit.Builder()
+        .baseUrl("http://51.195.19.222/")
         .client(client)
-        .baseUrl("https://www.flickr.com/services/rest/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    var service: GetImageInterface = retrofit.create(GetImageInterface::class.java)
+    var service = retrofit.create(MovieService::class.java)
 }

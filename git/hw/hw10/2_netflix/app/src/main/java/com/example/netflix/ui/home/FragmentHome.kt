@@ -1,7 +1,6 @@
 package com.example.netflix.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
@@ -10,12 +9,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.netflix.MyMovie
 import com.example.netflix.R
 import com.example.netflix.databinding.HomeFragmentBinding
+import com.example.netflix.ui.HomeViewModel
 
 class FragmentHome : Fragment(R.layout.home_fragment) {
 
     private val viewModel: HomeViewModel by activityViewModels()
     private lateinit var binding: HomeFragmentBinding
-    private lateinit var recyclerAdaptor:HomeRecyclerAdaptor
+    private lateinit var recyclerAdaptor: HomeRecyclerAdaptor
     private val listMovies = mutableListOf<MyMovie>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,7 +30,7 @@ class FragmentHome : Fragment(R.layout.home_fragment) {
     }
 
     private fun clickFavourite() {
-        recyclerAdaptor.setItemClickFavourite(object: HomeRecyclerAdaptor.ClickFavourite{
+        recyclerAdaptor.setItemClickFavourite(object: HomeRecyclerAdaptor.ClickFavourite {
             override fun iconClicked(pos: Int, icon: ImageView) {
                 var boolean = viewModel.clickFavourite(pos)
                 if (boolean) icon.setImageResource(R.drawable.favorite_icon_choosed)

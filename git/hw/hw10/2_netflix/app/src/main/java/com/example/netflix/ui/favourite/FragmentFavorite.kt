@@ -8,9 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.netflix.MyMovie
 import com.example.netflix.R
 import com.example.netflix.databinding.FavoriteFragmentBinding
-import com.example.netflix.ui.favourite.FavoriteRecyclerAdaptor
-import com.example.netflix.ui.home.HomeRecyclerAdaptor
-import com.example.netflix.ui.home.HomeViewModel
+import com.example.netflix.ui.HomeViewModel
 
 class FragmentFavorite:Fragment(R.layout.favorite_fragment) {
 

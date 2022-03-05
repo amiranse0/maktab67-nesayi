@@ -11,26 +11,44 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.example.netflix.R
 import com.example.netflix.databinding.ProfileFragmentBinding
+import com.example.netflix.ui.HomeViewModel
 
 class FragmentProfile : Fragment(R.layout.profile_fragment) {
 
 
     lateinit var activityResultLauncher: ActivityResultLauncher<Void>
-
+    private val viewModel: HomeViewModel by activityViewModels()
     lateinit var binding: ProfileFragmentBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding = ProfileFragmentBinding.bind(view)
 
-        getInformation()
+        viewModel.getIsRegistered().observe(viewLifecycleOwner) {
+            if (!it) getInformation()
+            else showProfile()
+
+            binding.isRegistered = it
+        }
+    }
+
+    private fun showProfile() {
+        viewModel.getProfile().observe(viewLifecycleOwner) {
+            binding.name = it.name
+            binding.email = it.email
+            binding.userName = it.userName
+            binding.phoneNumber = it.phoneNumber
+        }
     }
 
     private fun getInformation() {
         getImageFromCamera()
+        getInfoFromText()
+    }
 
+    private fun getInfoFromText() {
         binding.profileRegisterButton.setOnClickListener {
             if (binding.profileUserNameEd.text.toString() == "") Toast.makeText(
                 requireContext(),
@@ -43,13 +61,14 @@ class FragmentProfile : Fragment(R.layout.profile_fragment) {
                 Toast.LENGTH_SHORT
             ).show()
             else {
-
+                viewModel.createProfile(
+                    binding.profileNameEd.text.toString(),
+                    binding.profileEmailEd.text.toString(),
+                    binding.profilePhoneNumberEd.text.toString(),
+                    binding.profileUserNameEd.text.toString()
+                )
             }
         }
-    }
-
-    fun getInfoFromText() {
-
     }
 
     fun getImageFromCamera() {

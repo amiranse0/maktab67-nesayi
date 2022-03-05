@@ -1,13 +1,11 @@
-package com.example.netflix.ui.home
+package com.example.netflix.ui
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.netflix.MyMovie
 import com.example.netflix.getmoviewithretrofit.Movie
-import com.example.netflix.getmoviewithretrofit.MovieNames
 import com.example.netflix.getmoviewithretrofit.NetworkManager
-import com.example.netflix.getmoviewithretrofit.Result
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,12 +15,30 @@ class HomeViewModel : ViewModel() {
     private var movies = MutableLiveData<List<MyMovie>>()
     private var newMovies = MutableLiveData<List<MyMovie>>()
     private var favouriteMovies = MutableLiveData<List<MyMovie>>()
+    private var profile =  MutableLiveData<Profile>()
 
+    private var isRegistered = MutableLiveData(false)
+
+    fun createProfile(name: String, email: String, phoneNumber: String, userName: String){
+        isRegistered.postValue(true)
+        profile.postValue(Profile(name, email, phoneNumber, userName))
+    }
+
+    fun getProfile() = profile
+
+    inner class Profile(
+        val name: String,
+        val email: String,
+        val phoneNumber: String,
+        val userName: String
+    )
+
+    fun getIsRegistered() = isRegistered
     fun getNewMovies() = newMovies
     fun getMovies() = movies
-    fun getFavouriteMovies():MutableLiveData<List<MyMovie>>{
+    fun getFavouriteMovies(): MutableLiveData<List<MyMovie>> {
         var temp = mutableListOf<MyMovie>()
-        for(i in movies.value?: emptyList()){
+        for (i in movies.value ?: emptyList()) {
             if (i.isFavorite) temp.add(i)
         }
         favouriteMovies.postValue(temp)
@@ -30,7 +46,7 @@ class HomeViewModel : ViewModel() {
     }
 
     fun getMovieFromServer() {
-        if (movies.value == null){
+        if (movies.value == null) {
             val movie = NetworkManager.service.getMovieFromServer(
                 "k_3w228043",
                 hashMapOf("groups" to "top_250", "count" to "21")
@@ -52,7 +68,7 @@ class HomeViewModel : ViewModel() {
 
     fun getNewMoviesFromServer() {
 
-        if (newMovies.value == null){
+        if (newMovies.value == null) {
             val movie = NetworkManager.service.getMovieFromServer(
                 "k_3w228043",
                 hashMapOf("release_date" to "2022-01-01,2022-03-01", "count" to "3")
@@ -72,7 +88,7 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun clickFavourite(pos: Int):Boolean{
+    fun clickFavourite(pos: Int): Boolean {
         movies.value?.get(pos)?.isFavorite = movies.value?.get(pos)?.isFavorite == false
         return movies.value?.get(pos)?.isFavorite ?: false
     }

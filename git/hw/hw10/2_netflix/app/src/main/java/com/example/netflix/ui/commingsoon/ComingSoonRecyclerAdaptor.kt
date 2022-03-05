@@ -6,7 +6,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.example.netflix.MyMovie
 import com.example.netflix.databinding.CustomViewComingSoonBinding
-import com.example.netflix.ui.home.HomeViewModel
 
 class ComingSoonRecyclerAdaptor(private var listNew:List<MyMovie>, val owner: LifecycleOwner)
     :RecyclerView.Adapter<ComingSoonRecyclerAdaptor.ViewHolder>() {
