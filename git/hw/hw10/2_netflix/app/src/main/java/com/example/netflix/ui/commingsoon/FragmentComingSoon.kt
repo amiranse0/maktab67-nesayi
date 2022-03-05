@@ -43,8 +43,8 @@ class FragmentComingSoon : Fragment(R.layout.coming_soon_fragment) {
             listMovies.addAll(it)
             recyclerAdaptor.notifyDataSetChanged()
         }
-        val recyclerAdaptor = HomeRecyclerAdaptor(listMovies, viewLifecycleOwner)
-        recyclerView.layoutManager = GridLayoutManager(requireContext(),3)
+        recyclerAdaptor = ComingSoonRecyclerAdaptor(listMovies, viewLifecycleOwner)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = recyclerAdaptor
     }
 }

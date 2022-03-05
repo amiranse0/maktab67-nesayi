@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         Handler().postDelayed({
             val intent = Intent(this, NetflixActivity::class.java)
             startActivity(intent)
-            //finish()
+            finish()
         }, 2000)
     }
 }

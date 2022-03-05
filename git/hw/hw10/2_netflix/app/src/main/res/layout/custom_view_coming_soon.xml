@@ -5,21 +5,17 @@
 
     <data>
         <import type="com.example.netflix.MyMovie"/>
-        <import type="java.util.List"/>
         <variable
-            name="listNew"
-            type="List&lt;MyMovie>" />
-        <variable
-            name="pos"
-            type="Integer" />
+            name="movie"
+            type="MyMovie" />
     </data>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
@@ -31,7 +27,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                loadImage="@{listNew[pos].image}" />
+                loadImage="@{movie.image}" />
 
             <TextView
                 android:id="@+id/custom_title_coming_soon"
@@ -39,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:padding="5dp"
-                android:text="TextView"
+                android:text="@{movie.name}"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:padding="5dp"
-                android:text="TextView"
+                android:text="@{movie.description}"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:padding="5dp"
-                onClickShare="@{listNew[pos].name}"
+                onClickShare="@{movie.name}"
                 app:layout_constraintBottom_toBottomOf="@+id/custom_iv_coming_soon"
                 app:layout_constraintEnd_toEndOf="@+id/custom_iv_coming_soon"
                 app:srcCompat="@drawable/share_icon" />

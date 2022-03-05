@@ -1,7 +1,9 @@
 package com.example.netflix.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -23,6 +25,18 @@ class FragmentHome : Fragment(R.layout.home_fragment) {
         viewModel.getMovieFromServer()
 
         draw()
+
+        clickFavourite()
+    }
+
+    private fun clickFavourite() {
+        recyclerAdaptor.setItemClickFavourite(object: HomeRecyclerAdaptor.ClickFavourite{
+            override fun iconClicked(pos: Int, icon: ImageView) {
+                var boolean = viewModel.clickFavourite(pos)
+                if (boolean) icon.setImageResource(R.drawable.favorite_icon_choosed)
+                else icon.setImageResource(R.drawable.favorite_icon)
+            }
+        })
     }
 
     private fun draw() {
@@ -31,8 +45,10 @@ class FragmentHome : Fragment(R.layout.home_fragment) {
             listMovies.clear()
             listMovies.addAll(it)
             recyclerAdaptor.notifyDataSetChanged()
+
         }
-        val recyclerAdaptor = HomeRecyclerAdaptor(listMovies, viewLifecycleOwner)
+
+        recyclerAdaptor = HomeRecyclerAdaptor(listMovies, viewLifecycleOwner)
         recyclerView.layoutManager = GridLayoutManager(requireContext(),3)
         recyclerView.adapter = recyclerAdaptor
     }

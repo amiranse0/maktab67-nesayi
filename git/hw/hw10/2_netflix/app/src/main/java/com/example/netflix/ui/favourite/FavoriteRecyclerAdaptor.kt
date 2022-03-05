@@ -16,13 +16,8 @@ class FavoriteRecyclerAdaptor(private val listFavourite:List<MyMovie> , val owne
     inner class ViewHolder(private val binding: CustomFavouriteBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        init {
-            binding.lifecycleOwner = owner
-            binding.listFavourite = listFavourite
-        }
-
         fun bind(pos:Int) {
-            binding.pos = pos
+            binding.movie = listFavourite[pos]
         }
     }
 

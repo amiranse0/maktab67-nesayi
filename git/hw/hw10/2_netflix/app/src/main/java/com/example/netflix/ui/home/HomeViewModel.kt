@@ -14,54 +14,67 @@ import retrofit2.Response
 
 class HomeViewModel : ViewModel() {
 
-    private var movies = MutableLiveData<MutableList<MyMovie>>()
-    private var newMovies = MutableLiveData<MutableList<MyMovie>>()
+    private var movies = MutableLiveData<List<MyMovie>>()
+    private var newMovies = MutableLiveData<List<MyMovie>>()
+    private var favouriteMovies = MutableLiveData<List<MyMovie>>()
 
     fun getNewMovies() = newMovies
     fun getMovies() = movies
+    fun getFavouriteMovies():MutableLiveData<List<MyMovie>>{
+        var temp = mutableListOf<MyMovie>()
+        for(i in movies.value?: emptyList()){
+            if (i.isFavorite) temp.add(i)
+        }
+        favouriteMovies.postValue(temp)
+        return favouriteMovies
+    }
 
     fun getMovieFromServer() {
-        val result = enqueueRequest(hashMapOf("groups" to "top_250", "count" to "21"))
+        if (movies.value == null){
+            val movie = NetworkManager.service.getMovieFromServer(
+                "k_3w228043",
+                hashMapOf("groups" to "top_250", "count" to "21")
+            )
 
-        val tempList = mutableListOf<MyMovie>()
-        for (i in result){
-            tempList.add(MyMovie(i.title, i.image, false))
+            movie.enqueue(object : Callback<Movie> {
+                override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
+                    movies.postValue(response.body()?.results?.map {
+                        MyMovie(it.title, it.image, false)
+                    })
+                }
+
+                override fun onFailure(call: Call<Movie>, t: Throwable) {
+                    Log.d("TAG", t.message.toString())
+                }
+            })
         }
-        movies.value?.clear()
-        movies.value?.addAll(tempList)
     }
 
-    fun getNewMoviesFromServer(){
+    fun getNewMoviesFromServer() {
 
-        var result = enqueueRequest(hashMapOf("release_date" to "2022-01-01,2022-03-01", "count" to "3"))
-        var tempList = mutableListOf<MyMovie>()
-        for (i in result){
-            tempList.add(MyMovie(i.title, i.image, false))
+        if (newMovies.value == null){
+            val movie = NetworkManager.service.getMovieFromServer(
+                "k_3w228043",
+                hashMapOf("release_date" to "2022-01-01,2022-03-01", "count" to "3")
+            )
+
+            movie.enqueue(object : Callback<Movie> {
+                override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
+                    newMovies.postValue(response.body()?.results?.map {
+                        MyMovie(it.title, it.image, false, it.plot)
+                    })
+                }
+
+                override fun onFailure(call: Call<Movie>, t: Throwable) {
+                    Log.d("TAG", t.message.toString())
+                }
+            })
         }
-        newMovies.value?.clear()
-        newMovies.value?.addAll(tempList)
     }
 
-    private fun enqueueRequest(hashMap: HashMap<String, String>):List<Result>{
-        var result = listOf<Result>()
-        val movie = NetworkManager.service.getMovieFromServer("k_3w228043", hashMap)
-
-        movie.enqueue(object : Callback<Movie> {
-            override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
-                result = response.body()?.results!!
-            }
-
-            override fun onFailure(call: Call<Movie>, t: Throwable) {
-                Log.d("TAG", t.message.toString())
-            }
-        })
-
-        return result
-    }
-
-    fun clickFavourite(pos: Int): Boolean? {
+    fun clickFavourite(pos: Int):Boolean{
         movies.value?.get(pos)?.isFavorite = movies.value?.get(pos)?.isFavorite == false
-        return movies.value?.get(pos)?.isFavorite
+        return movies.value?.get(pos)?.isFavorite ?: false
     }
 
 }

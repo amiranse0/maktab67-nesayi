@@ -29,7 +29,30 @@ class FragmentProfile : Fragment(R.layout.profile_fragment) {
     }
 
     private fun getInformation() {
+        getImageFromCamera()
 
+        binding.profileRegisterButton.setOnClickListener {
+            if (binding.profileUserNameEd.text.toString() == "") Toast.makeText(
+                requireContext(),
+                "enter your name",
+                Toast.LENGTH_SHORT
+            ).show()
+            else if (binding.profileEmailEd.text.toString() == "") Toast.makeText(
+                requireContext(),
+                "enter your email",
+                Toast.LENGTH_SHORT
+            ).show()
+            else {
+
+            }
+        }
+    }
+
+    fun getInfoFromText() {
+
+    }
+
+    fun getImageFromCamera() {
         activityResultLauncher = registerForActivityResult(
             ActivityResultContracts.TakePicturePreview()
         ) {
@@ -38,19 +61,21 @@ class FragmentProfile : Fragment(R.layout.profile_fragment) {
         }
         binding.profilePictureAdd.setOnClickListener {
 
-            if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
-                ActivityCompat.requestPermissions(requireActivity(),
-                    arrayOf(android.Manifest.permission.CAMERA), 100)
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    android.Manifest.permission.CAMERA
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    requireActivity(),
+                    arrayOf(android.Manifest.permission.CAMERA), 100
+                )
             }
 
             var intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             if (intent.resolveActivity(requireActivity().packageManager) != null) {
                 activityResultLauncher.launch(null)
             } else Toast.makeText(requireContext(), "there is no camera", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.profileRegisterButton.setOnClickListener {
-
         }
     }
 

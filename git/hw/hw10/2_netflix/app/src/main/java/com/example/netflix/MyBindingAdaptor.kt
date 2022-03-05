@@ -19,19 +19,6 @@ fun ImageView.loadImage(image:String?){
         .into(this)
 }
 
-@BindingAdapter("onClickFavourite","pos")
-fun ImageView.onClickFavourite(listMovies: List<MyMovie>, pos: Int){
-
-    if (listMovies[pos].isFavorite) this.setImageResource(R.drawable.favorite_icon_choosed)
-    else this.setImageResource(R.drawable.favorite_icon)
-
-//    this.setOnClickListener {
-//        val bool = viewModel.clickFavourite(pos)
-//        if (bool == true) this.setImageResource(R.drawable.favorite_icon_choosed)
-//        if (bool == false) this.setImageResource(R.drawable.favorite_icon)
-//    }
-}
-
 @BindingAdapter("onClickShare")
 fun ImageView.onClickShare(name:String?){
     this.setOnClickListener {

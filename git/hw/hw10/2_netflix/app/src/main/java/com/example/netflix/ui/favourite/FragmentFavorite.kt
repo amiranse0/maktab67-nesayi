@@ -16,7 +16,7 @@ class FragmentFavorite:Fragment(R.layout.favorite_fragment) {
 
     private val viewModel: HomeViewModel by activityViewModels()
     private lateinit var binding: FavoriteFragmentBinding
-    private lateinit var recyclerAdaptor:HomeRecyclerAdaptor
+    private lateinit var recyclerAdaptor:FavoriteRecyclerAdaptor
     private val listMovies = mutableListOf<MyMovie>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -29,12 +29,12 @@ class FragmentFavorite:Fragment(R.layout.favorite_fragment) {
 
     private fun draw(){
         val recyclerView = binding.favoriteRecyclerView
-        viewModel.getMovies().observe(viewLifecycleOwner){
+        viewModel.getFavouriteMovies().observe(viewLifecycleOwner){
             listMovies.clear()
             listMovies.addAll(it)
             recyclerAdaptor.notifyDataSetChanged()
         }
-        val recyclerAdaptor = FavoriteRecyclerAdaptor(listMovies, viewLifecycleOwner)
+        recyclerAdaptor = FavoriteRecyclerAdaptor(listMovies, viewLifecycleOwner)
         recyclerView.layoutManager = GridLayoutManager(requireContext(),3)
         recyclerView.adapter = recyclerAdaptor
     }

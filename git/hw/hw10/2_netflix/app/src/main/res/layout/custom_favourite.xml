@@ -5,14 +5,10 @@
 
     <data>
         <import type="com.example.netflix.MyMovie"/>
-        <import type="java.util.List"/>
 
         <variable
-            name="listFavourite"
-            type="List&lt;MyMovie>" />
-        <variable
-            name="pos"
-            type="Integer" />
+            name="movie"
+            type="MyMovie" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -28,7 +24,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_margin="10dp"
-                app:loadImage="@{listFavourite[pos].image}"
+                app:loadImage="@{movie.image}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -51,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:padding="5dp"
-                android:text="TextView"
+                android:text="@{movie.name}"
                 android:gravity="center_horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -12,13 +12,9 @@ class ComingSoonRecyclerAdaptor(private var listNew:List<MyMovie>, val owner: Li
     :RecyclerView.Adapter<ComingSoonRecyclerAdaptor.ViewHolder>() {
 
     inner class ViewHolder(private val binding:CustomViewComingSoonBinding):RecyclerView.ViewHolder(binding.root) {
-        init {
-            binding.lifecycleOwner = owner
-            binding.listNew = listNew
-        }
 
         fun bind(position: Int) {
-            binding.pos = position
+            binding.movie = listNew[position]
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

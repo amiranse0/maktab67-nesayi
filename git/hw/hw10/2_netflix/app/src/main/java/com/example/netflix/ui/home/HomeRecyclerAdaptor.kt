@@ -1,7 +1,9 @@
 package com.example.netflix.ui.home
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.example.netflix.MyMovie
@@ -14,18 +16,21 @@ class HomeRecyclerAdaptor(
 ) : RecyclerView.Adapter<ViewHolder>() {
 
     lateinit var binding: CustomeViewHomeBinding
+    lateinit var clickFavourite: ClickFavourite
 
     inner class ViewHolder(private val binding: CustomeViewHomeBinding):
-        RecyclerView.ViewHolder(binding.root) {
-
+        RecyclerView.ViewHolder(binding.root), View.OnClickListener {
         init {
-            binding.lifecycleOwner = owner
-            binding.listMovies = listMovies
+            binding.customIcon.setOnClickListener(this)
+        }
+        fun bind(position: Int) {
+            binding.movie = listMovies[position]
         }
 
-        fun bind(position: Int) {
-            binding.pos = position
+        override fun onClick(p0: View?) {
+            clickFavourite.iconClicked(adapterPosition, p0 as ImageView)
         }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -40,5 +45,13 @@ class HomeRecyclerAdaptor(
 
     override fun getItemCount(): Int {
         return listMovies.size
+    }
+
+    interface ClickFavourite{
+        fun iconClicked(pos:Int, icon:ImageView)
+    }
+
+    fun setItemClickFavourite(clickFavourite: ClickFavourite){
+        this.clickFavourite = clickFavourite
     }
 }
