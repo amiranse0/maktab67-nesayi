@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.example.netflix.HomeViewModel"/>
+        <import type="com.example.netflix.MyMovie"/>
+        <import type="java.util.List"/>
 
         <variable
-            name="viewModel"
-            type="HomeViewModel" />
+            name="listFavourite"
+            type="List&lt;MyMovie>" />
         <variable
             name="pos"
             type="Integer" />
@@ -27,8 +28,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_margin="10dp"
-                app:loadImageFavourite="@{viewModel}"
-                app:posFavourite="@{pos}"
+                app:loadImage="@{listFavourite[pos].image}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

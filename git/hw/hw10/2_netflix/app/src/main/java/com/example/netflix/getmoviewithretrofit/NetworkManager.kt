@@ -10,12 +10,12 @@ object NetworkManager {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
-    val client = OkHttpClient.Builder()
+    private val client = OkHttpClient.Builder()
         .addInterceptor(httpLoggingInterceptor)
         .build()
 
     private var retrofit = Retrofit.Builder()
-        .baseUrl("https://www.omdbapi.com/")
+        .baseUrl("https://imdb-api.com/en/API/")
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .build()

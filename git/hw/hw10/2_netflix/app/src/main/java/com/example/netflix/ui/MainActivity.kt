@@ -1,14 +1,10 @@
-package com.example.netflix
+package com.example.netflix.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.netflix.R
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         Handler().postDelayed({
             val intent = Intent(this, NetflixActivity::class.java)
             startActivity(intent)
-            finish()
-        }, 3000)
+            //finish()
+        }, 2000)
     }
 }

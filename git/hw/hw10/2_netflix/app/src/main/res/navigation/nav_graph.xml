@@ -6,18 +6,18 @@
 
     <fragment
         android:id="@+id/fragmentHome"
-        android:name="com.example.netflix.FragmentHome"
+        android:name="com.example.netflix.ui.home.FragmentHome"
         android:label="FragmentHome" />
     <fragment
         android:id="@+id/fragmentComingSoon"
-        android:name="com.example.netflix.FragmentComingSoon"
+        android:name="com.example.netflix.ui.commingsoon.FragmentComingSoon"
         android:label="FragmentComingSoon" />
     <fragment
         android:id="@+id/fragmentFavorite"
-        android:name="com.example.netflix.FragmentFavorite"
+        android:name="com.example.netflix.ui.favourite.FragmentFavorite"
         android:label="FragmentFavorite" />
     <fragment
         android:id="@+id/fragmentProfile"
-        android:name="com.example.netflix.FragmentProfile"
+        android:name="com.example.netflix.ui.profile.FragmentProfile"
         android:label="FragmentProfile" />
 </navigation>

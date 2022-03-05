@@ -1,26 +1,18 @@
-package com.example.netflix
+package com.example.netflix.ui.profile
 
-import android.app.Activity.RESULT_OK
-import android.app.Instrumentation
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import android.widget.Toast
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
+import com.example.netflix.R
 import com.example.netflix.databinding.ProfileFragmentBinding
-import org.json.JSONStringer
-import java.util.jar.Manifest
 
 class FragmentProfile : Fragment(R.layout.profile_fragment) {
 

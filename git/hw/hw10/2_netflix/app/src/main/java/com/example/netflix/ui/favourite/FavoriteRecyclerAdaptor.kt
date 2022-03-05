@@ -1,25 +1,27 @@
-package com.example.netflix
+package com.example.netflix.ui.favourite
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.example.netflix.FavoriteRecyclerAdaptor.ViewHolder
+import com.example.netflix.MyMovie
+import com.example.netflix.ui.favourite.FavoriteRecyclerAdaptor.ViewHolder
 import com.example.netflix.databinding.CustomFavouriteBinding
-import com.example.netflix.databinding.CustomeViewHomeBinding
+import com.example.netflix.ui.home.HomeViewModel
 
-class FavoriteRecyclerAdaptor(private var viewModel:HomeViewModel, private val context: Context)
+class FavoriteRecyclerAdaptor(private val listFavourite:List<MyMovie> , val owner: LifecycleOwner)
     :RecyclerView.Adapter<ViewHolder>() {
 
     inner class ViewHolder(private val binding: CustomFavouriteBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(newViewModel: HomeViewModel, pos:Int) {
-            binding.viewModel = newViewModel
+
+        init {
+            binding.lifecycleOwner = owner
+            binding.listFavourite = listFavourite
+        }
+
+        fun bind(pos:Int) {
             binding.pos = pos
         }
     }
@@ -33,14 +35,10 @@ class FavoriteRecyclerAdaptor(private var viewModel:HomeViewModel, private val c
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(viewModel,position)
+        holder.bind(position)
     }
 
     override fun getItemCount(): Int {
-        var count = 0
-        for(i in viewModel.getImages().value!!){
-            if (i.isFavorite) count++
-        }
-        return count
+        return listFavourite.size
     }
 }

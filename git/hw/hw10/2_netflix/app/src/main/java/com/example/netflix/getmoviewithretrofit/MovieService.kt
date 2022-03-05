@@ -2,12 +2,12 @@ package com.example.netflix.getmoviewithretrofit
 
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
+import retrofit2.http.QueryMap
 
 interface MovieService {
-    @GET("https://www.omdbapi.com/")
-    fun getMovie(@Query("t") names: String,
-    @Query("y") year:String,
-    @Query("apikey") api:String): Call<Movie>
-
+    @GET("https://imdb-api.com/en/API/AdvancedSearch/{apiKey}")
+    fun getMovieFromServer(@Path("apiKey") apiKey:String,
+    @QueryMap hashMap: HashMap<String,String>): Call<Movie>
 }

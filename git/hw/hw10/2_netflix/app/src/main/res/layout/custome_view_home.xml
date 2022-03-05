@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.example.netflix.HomeViewModel"/>
+        <import type="com.example.netflix.MyMovie"/>
+        <import type="java.util.List"/>
 
         <variable
-            name="viewModel"
-            type="HomeViewModel" />
+            name="listMovies"
+            type="List&lt;MyMovie>" />
         <variable
             name="pos"
             type="Integer" />
@@ -27,8 +28,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_margin="10dp"
-                app:loadImage="@{viewModel}"
-                app:pos="@{pos}"
+                app:loadImage="@{listMovies[pos].image}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +42,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:padding="3dp"
-                onClickFavourite="@{viewModel}"
+                onClickFavourite="@{listMovies}"
                 pos="@{pos}"
                 app:layout_constraintBottom_toBottomOf="@+id/custom_iv"
                 app:layout_constraintEnd_toEndOf="@+id/custom_iv" />
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:padding="5dp"
-                android:text="@{viewModel.images[pos].name}"
+                android:text="@{listMovies[pos].name}"
                 android:gravity="center_horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

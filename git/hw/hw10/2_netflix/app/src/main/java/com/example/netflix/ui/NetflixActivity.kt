@@ -1,4 +1,4 @@
-package com.example.netflix
+package com.example.netflix.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,6 +6,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.netflix.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class NetflixActivity : AppCompatActivity() {
@@ -16,10 +17,12 @@ class NetflixActivity : AppCompatActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav)
         val navController = findNavController(R.id.fragment)
 
-        val appBrConfig = AppBarConfiguration(setOf(R.id.fragmentProfile,
+        val appBrConfig = AppBarConfiguration(setOf(
+            R.id.fragmentProfile,
             R.id.fragmentFavorite,
             R.id.fragmentComingSoon,
-            R.id.fragmentHome))
+            R.id.fragmentHome
+        ))
 
         setupActionBarWithNavController(navController,appBrConfig)
 
