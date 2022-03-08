@@ -23,7 +23,9 @@ fun ImageView.onClickShare(name:String?){
     this.setOnClickListener {
         val intent = Intent(Intent.ACTION_SEND)
         intent.type = "text/plain"
-        intent.putExtra("share", name)
+        intent.putExtra(Intent.EXTRA_TEXT, name as String)
+
+        Log.d("THIS", name as String)
 
         val chooser = Intent.createChooser(intent, "Share this")
         context.startActivity(chooser)

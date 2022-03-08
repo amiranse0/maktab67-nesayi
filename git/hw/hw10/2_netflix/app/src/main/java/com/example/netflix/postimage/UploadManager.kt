@@ -22,5 +22,5 @@ object UploadManager {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    var service = retrofit.create(MovieService::class.java)
+    var service = retrofit.create(ProfileImageService::class.java)
 }

@@ -6,6 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.example.netflix.MyMovie
 import com.example.netflix.getmoviewithretrofit.Movie
 import com.example.netflix.getmoviewithretrofit.NetworkManager
+import com.example.netflix.postimage.UploadManager
+import okhttp3.MediaType
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,25 +18,10 @@ class HomeViewModel : ViewModel() {
     private var movies = MutableLiveData<List<MyMovie>>()
     private var newMovies = MutableLiveData<List<MyMovie>>()
     private var favouriteMovies = MutableLiveData<List<MyMovie>>()
-    private var profile =  MutableLiveData<Profile>()
+    private val profileImage = MutableLiveData<String>()
 
-    private var isRegistered = MutableLiveData(false)
+    fun getProfileImage() = profileImage
 
-    fun createProfile(name: String, email: String, phoneNumber: String, userName: String){
-        isRegistered.postValue(true)
-        profile.postValue(Profile(name, email, phoneNumber, userName))
-    }
-
-    fun getProfile() = profile
-
-    inner class Profile(
-        val name: String,
-        val email: String,
-        val phoneNumber: String,
-        val userName: String
-    )
-
-    fun getIsRegistered() = isRegistered
     fun getNewMovies() = newMovies
     fun getMovies() = movies
     fun getFavouriteMovies(): MutableLiveData<List<MyMovie>> {
@@ -91,6 +79,34 @@ class HomeViewModel : ViewModel() {
     fun clickFavourite(pos: Int): Boolean {
         movies.value?.get(pos)?.isFavorite = movies.value?.get(pos)?.isFavorite == false
         return movies.value?.get(pos)?.isFavorite ?: false
+    }
+
+    fun postProfileImage(image:ByteArray){
+        val body= MultipartBody.create(MediaType.parse("image/*"),image)
+        val request = MultipartBody.Part.createFormData("image","profileNetflixNesaee.jpg",body)
+        UploadManager.service.sendProfileImage("amirabbas0",request).enqueue(object : Callback<Any>{
+            override fun onResponse(call: Call<Any>, response: Response<Any>) {
+                Log.d("TAG", response.body().toString())
+            }
+
+            override fun onFailure(call: Call<Any>, t: Throwable) {
+                Log.d("TAG", t.message.toString())
+            }
+        })
+    }
+
+    fun getProfileImageFromServer(){
+        val call = UploadManager.service.getProfileImage("profileNetflixNesaee.jpg")
+        call.enqueue(object : Callback<String>{
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                profileImage.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                Log.d("TAG", t.message.toString())
+            }
+
+        })
     }
 
 }
