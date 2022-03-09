@@ -1,40 +1,34 @@
 package com.example.problem1hw15
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class MyViewModel : ViewModel() {
     private var cities = MutableLiveData(
         mutableListOf(
-            Item("Los Angles", false),
-            Item("Ohio", false),
-            Item("NewYork", false),
-            Item("Miami", false),
-            Item("Chicago", false),
-            Item("Dallas", false),
-            Item("Phoenix", false),
-            Item("San Jose", false),
-            Item("San Diego", false),
-            Item("Las Vegas", false)
+            Item("Los Angles", false, 0),
+            Item("Ohio", false, 1),
+            Item("NewYork", false, 2),
+            Item("Miami", false, 3),
+            Item("Chicago", false, 4),
+            Item("Dallas", false, 5),
+            Item("Phoenix", false, 6),
+            Item("San Jose", false, 7),
+            Item("San Diego", false, 8),
+            Item("Las Vegas", false, 9)
         )
     )
 
     fun getCities() = cities
 
-    private var favoriteCities = MutableLiveData<MutableList<Item>>()
-
-    private fun updateListFav(){
-        var listFav = mutableListOf<Item>()
-        for (i in cities.value!!){
-            if (i.isFav) listFav.add(i)
-        }
-        favoriteCities.value?.clear()
-        favoriteCities.value?.addAll(listFav)
-    }
-
-    fun clickFav(pos:Int):Boolean?{
+    fun clickFav(item: Item):Boolean?{
+        val pos = item.code
         cities.value?.get(pos)?.isFav = cities.value?.get(pos)?.isFav == false
-        updateListFav()
+
+        Log.d("TAG", cities.value?.get(pos)?.isFav.toString())
+
         return cities.value?.get(pos)?.isFav
     }
+
 }

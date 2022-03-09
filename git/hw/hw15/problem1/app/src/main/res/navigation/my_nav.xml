@@ -15,5 +15,11 @@
     <fragment
         android:id="@+id/secondFragment"
         android:name="com.example.problem1hw15.SecondFragment"
-        android:label="SecondFragment" />
+        android:label="SecondFragment" >
+        <action
+            android:id="@+id/action_secondFragment_to_firstFragment"
+            app:destination="@id/firstFragment"
+            app:popUpTo="@id/firstFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

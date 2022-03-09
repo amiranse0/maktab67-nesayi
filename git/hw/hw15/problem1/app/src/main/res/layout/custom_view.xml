@@ -14,18 +14,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:backgroundTint='@{item.fav ? @color/fav : @color/not_fav}'
+        android:backgroundTint="@color/select_item"
         app:cardCornerRadius="50dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/text_city"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="@{item.name}"

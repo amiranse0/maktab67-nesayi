@@ -3,10 +3,12 @@ package com.example.problem1hw15
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.problem1hw15.databinding.CustomViewBinding
 
-class MyRecyclerAdaptor(private val items: List<Item>) :
+class MyRecyclerAdaptor(private var items: List<Item>) :
     RecyclerView.Adapter<MyRecyclerAdaptor.MyViewHolder>() {
 
     lateinit var thisClickItem: ClickItem
@@ -16,13 +18,14 @@ class MyRecyclerAdaptor(private val items: List<Item>) :
 
         fun bind(position: Int) {
             binding.item = items[position]
+            binding.root.isSelected = items[position].isFav
         }
 
         init {
             binding.root.setOnClickListener(this);
         }
         override fun onClick(p0: View?) {
-            thisClickItem.click(adapterPosition, p0)
+            thisClickItem.click(items[adapterPosition], p0)
         }
 
     }
@@ -42,10 +45,11 @@ class MyRecyclerAdaptor(private val items: List<Item>) :
     }
 
     interface ClickItem {
-        fun click(position: Int, view: View?)
+        fun click(item: Item, view: View?)
     }
 
     fun setClickItem(clickItem: ClickItem) {
         this.thisClickItem = clickItem
     }
+
 }

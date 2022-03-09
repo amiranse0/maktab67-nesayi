@@ -32,7 +32,7 @@ class FragmentHome : Fragment(R.layout.home_fragment) {
     private fun clickFavourite() {
         recyclerAdaptor.setItemClickFavourite(object: HomeRecyclerAdaptor.ClickFavourite {
             override fun iconClicked(pos: Int, icon: ImageView) {
-                var boolean = viewModel.clickFavourite(pos)
+                val boolean = viewModel.clickFavourite(pos)
                 if (boolean) icon.setImageResource(R.drawable.favorite_icon_choosed)
                 else icon.setImageResource(R.drawable.favorite_icon)
             }
