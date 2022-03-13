@@ -1,4 +1,4 @@
-package com.example.taskmanager
+package com.example.taskmanager.ui
 
 import androidx.annotation.NonNull
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -25,8 +25,8 @@ class ViewPagerAdaptor(@NonNull fragmentManager: FragmentManager, behavior: Int)
         listOfTitle.add(title)
     }
 
+    @NonNull
     override fun getPageTitle(position: Int):CharSequence{
         return listOfTitle.get(position)
     }
-
 }
