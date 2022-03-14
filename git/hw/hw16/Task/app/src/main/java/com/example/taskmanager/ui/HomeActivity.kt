@@ -1,0 +1,47 @@
+package com.example.taskmanager.ui
+
+import AddDialogFragment
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import androidx.fragment.app.FragmentPagerAdapter
+import com.example.taskmanager.R
+import com.example.taskmanager.databinding.ActivityHomeBinding
+
+class HomeActivity : AppCompatActivity() {
+
+    lateinit var viewPagerAdaptor: ViewPagerAdaptor
+    lateinit var binding: ActivityHomeBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_home)
+
+        binding = ActivityHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        viewPagerAdaptor = ViewPagerAdaptor(
+            supportFragmentManager,
+            FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+        )
+
+        handleViewPager()
+
+        addNewTask()
+    }
+
+    private fun addNewTask() {
+        binding.floatingActionButton.setOnClickListener {
+            val addDialogFragment = AddDialogFragment()
+            addDialogFragment.show(supportFragmentManager, "add")
+        }
+    }
+
+    private fun handleViewPager() {
+        binding.tabLayout.setupWithViewPager(binding.viewPager)
+
+        viewPagerAdaptor.addFragment(fragment = ToDoFragment(), "TODO")
+        viewPagerAdaptor.addFragment(fragment = DoingFragment(), "DOING")
+        viewPagerAdaptor.addFragment(fragment = DoneFramgment(), "Done")
+        binding.viewPager.adapter = viewPagerAdaptor
+    }
+}
