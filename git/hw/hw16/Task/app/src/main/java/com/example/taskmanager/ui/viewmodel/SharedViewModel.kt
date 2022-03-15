@@ -16,11 +16,14 @@ class SharedViewModel(private val repository: UserRepository) : ViewModel() {
     private var _dateLiveData = MutableLiveData<String>()
     val dateLiveData = _dateLiveData
 
-    fun getAllUserTasks(userName: String): LiveData<List<Task>> {
-        return repository.getAllUserTask(userName)
-    }
+
 
     fun addNewTask(task: Task) {
         repository.addNewTask(task)
     }
+
+    fun getTasks(username:String, situationOfTask: SituationOfTask):LiveData<List<Task>>{
+        return repository.getUserTask(username, situationOfTask)
+    }
+
 }

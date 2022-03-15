@@ -2,6 +2,7 @@ package com.example.taskmanager.data.repository
 
 import androidx.lifecycle.LiveData
 import com.example.taskmanager.data.DataSource
+import com.example.taskmanager.data.model.SituationOfTask
 import com.example.taskmanager.data.model.Task
 import com.example.taskmanager.data.model.User
 import java.util.concurrent.ExecutorService
@@ -18,8 +19,8 @@ class UserRepository(
         }
     }
 
-    fun getAllUserTask(userName:String): LiveData<List<Task>>{
-        return localDataSource.showAllUserTask(userName)
+    fun getUserTask(userName:String, situationOfTask: SituationOfTask): LiveData<List<Task>>{
+        return localDataSource.getUserTask(userName, situationOfTask)
     }
 
     //users

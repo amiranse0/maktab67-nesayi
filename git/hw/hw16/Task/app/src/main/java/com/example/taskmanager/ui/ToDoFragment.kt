@@ -5,6 +5,8 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.taskmanager.App
 import com.example.taskmanager.R
 import com.example.taskmanager.data.model.SituationOfTask
@@ -26,21 +28,27 @@ class ToDoFragment : Fragment(R.layout.fragment_to_do) {
 
     private lateinit var binding: FragmentToDoBinding
 
+    private var toDoList = mutableListOf<Task>()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentToDoBinding.bind(view)
 
-        getToDoTask()
         draw()
     }
 
     private fun draw() {
-        recyclerAdaptor = MyRecyclerAdaptor(emptyList())
-        binding.
-    }
 
-    private fun getToDoTask() {
-        TODO("Not yet implemented")
+        viewModel.getTasks("Amirabbas", SituationOfTask.TODO).observe(viewLifecycleOwner){
+            toDoList.clear()
+            toDoList.addAll(it)
+            recyclerAdaptor.notifyDataSetChanged()
+        }
+
+        recyclerAdaptor = MyRecyclerAdaptor(toDoList)
+
+        binding.myRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.myRecyclerView.adapter = recyclerAdaptor
     }
 }

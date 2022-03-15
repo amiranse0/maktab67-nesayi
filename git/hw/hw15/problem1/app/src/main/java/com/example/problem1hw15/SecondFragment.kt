@@ -85,6 +85,4 @@ class SecondFragment : Fragment(R.layout.second_fragment) {
 
         ItemTouchHelper(simpleItemTouchCallback).attachToRecyclerView(recyclerView)
     }
-
-
 }

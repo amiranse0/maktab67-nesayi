@@ -35,11 +35,6 @@ class HomeActivity : AppCompatActivity(){
 
         setContentView(binding.root)
 
-        viewPagerAdaptor = ViewPagerAdaptor(
-            supportFragmentManager,
-            FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
-        )
-
         handleViewPager()
 
         addNewTaskDialog()
@@ -82,6 +77,11 @@ class HomeActivity : AppCompatActivity(){
     }
 
     private fun handleViewPager() {
+        viewPagerAdaptor = ViewPagerAdaptor(
+            supportFragmentManager,
+            FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+        )
+
         binding.tabLayout.setupWithViewPager(binding.viewPager)
 
         viewPagerAdaptor.addFragment(fragment = ToDoFragment(), "TODO")

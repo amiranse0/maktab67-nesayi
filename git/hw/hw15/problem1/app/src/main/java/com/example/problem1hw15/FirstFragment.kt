@@ -40,7 +40,6 @@ class FirstFragment:Fragment(R.layout.first_fragment) {
     private fun clickItems() {
         recyclerAdaptor.setClickItem(object : MyRecyclerAdaptor.ClickItem{
 
-            @SuppressLint("ResourceAsColor")
             override fun click(item: Item, view: View?) {
                 val isFav = viewModel.clickFav(item)
                 view?.isSelected = isFav == true
