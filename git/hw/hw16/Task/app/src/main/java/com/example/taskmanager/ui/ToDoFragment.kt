@@ -22,8 +22,25 @@ class ToDoFragment : Fragment(R.layout.fragment_to_do) {
         CustomViewModelFactory((requireActivity().application as App).serviceLocator.repository)
     })
 
+    private lateinit var recyclerAdaptor: MyRecyclerAdaptor
+
+    private lateinit var binding: FragmentToDoBinding
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding = FragmentToDoBinding.bind(view)
+
+        getToDoTask()
+        draw()
+    }
+
+    private fun draw() {
+        recyclerAdaptor = MyRecyclerAdaptor(emptyList())
+        binding.
+    }
+
+    private fun getToDoTask() {
+        TODO("Not yet implemented")
     }
 }

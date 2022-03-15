@@ -36,7 +36,7 @@ class LocalDataSource(private val userDao: UserDao, private val taskDao: TaskDao
         userDao.updateUser(user)
     }
 
-    override fun getUser(userName: String): LiveData<User> {
+    override fun getUser(userName: String): LiveData<List<User>> {
         return userDao.getUser(userName)
     }
 

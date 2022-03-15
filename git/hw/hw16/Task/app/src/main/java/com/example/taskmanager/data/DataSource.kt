@@ -15,5 +15,5 @@ interface DataSource {
     fun addNewUser(user: User)
     fun deleteUser(user: User)
     fun updateUser(user: User)
-    fun getUser(userName:String): LiveData<User>
+    fun getUser(userName:String): LiveData<List<User>>
 }

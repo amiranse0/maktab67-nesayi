@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/search_menu"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:iconTint="@color/white"
+        android:title="search"
+        app:showAsAction="ifRoom"
+        app:actionViewClass="androidx.appcompat.widget.SearchView" />
+    <item android:id="@+id/profile_menu"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="profile"
+        android:iconTint="@color/white"
+        app:showAsAction="always"
+        />
+    <item android:id="@+id/test"
+        android:title="text"/>
+</menu>

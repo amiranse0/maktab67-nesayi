@@ -17,5 +17,5 @@ interface UserDao {
     fun updateUser(user: User)
 
     @Query("SELECT * FROM user WHERE userName == :userName")
-    fun getUser(userName:String): LiveData<User>
+    fun getUser(userName:String): LiveData<List<User>>
 }
