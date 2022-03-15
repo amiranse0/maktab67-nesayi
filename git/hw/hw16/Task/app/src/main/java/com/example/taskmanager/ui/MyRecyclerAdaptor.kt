@@ -12,8 +12,7 @@ class MyRecyclerAdaptor(private val items:List<Task>) : RecyclerView.Adapter<MyR
         RecyclerView.ViewHolder(binding.root) {
 
             fun bind(position: Int){
-                binding.timeDateCustomViewTv.text = items[position].time
-                binding.titleCustomViewTv.text = items[position].title
+                binding.item = items[position]
             }
     }
 

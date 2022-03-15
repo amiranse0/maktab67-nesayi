@@ -3,10 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/bootcamp/hws/git/hw/hw16/Task/app/src/main/res/drawable/rounded_shape.xml" value="0.114" />
         <entry key="..\:/bootcamp/hws/git/hw/hw16/Task/app/src/main/res/layout/activity_home.xml" value="0.22" />
         <entry key="..\:/bootcamp/hws/git/hw/hw16/Task/app/src/main/res/layout/activity_main.xml" value="0.17074275362318841" />
         <entry key="..\:/bootcamp/hws/git/hw/hw16/Task/app/src/main/res/layout/add_fragment_dialog.xml" value="0.18" />
-        <entry key="..\:/bootcamp/hws/git/hw/hw16/Task/app/src/main/res/layout/custom_view.xml" value="0.22" />
+        <entry key="..\:/bootcamp/hws/git/hw/hw16/Task/app/src/main/res/layout/custom_view.xml" value="0.33" />
         <entry key="..\:/bootcamp/hws/git/hw/hw16/Task/app/src/main/res/layout/fragment_date_picker.xml" value="0.20516304347826086" />
         <entry key="..\:/bootcamp/hws/git/hw/hw16/Task/app/src/main/res/layout/fragment_dialog.xml" value="0.25" />
         <entry key="..\:/bootcamp/hws/git/hw/hw16/Task/app/src/main/res/layout/fragment_doing.xml" value="0.17074275362318841" />
