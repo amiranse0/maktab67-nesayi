@@ -9,12 +9,12 @@ import com.example.taskmanager.App
 import com.example.taskmanager.R
 import com.example.taskmanager.data.model.SituationOfTask
 import com.example.taskmanager.data.model.Task
-import com.example.taskmanager.databinding.FragmentDoingBinding
+import com.example.taskmanager.databinding.FragmentDoneBinding
 import com.example.taskmanager.databinding.FragmentToDoBinding
 import com.example.taskmanager.ui.viewmodel.CustomViewModelFactory
 import com.example.taskmanager.ui.viewmodel.SharedViewModel
 
-class DoingFragment:Fragment(R.layout.fragment_doing) {
+class DoneFragment:Fragment(R.layout.fragment_done) {
 
     private val viewModel: SharedViewModel by viewModels(factoryProducer = {
         CustomViewModelFactory((requireActivity().application as App).serviceLocator.repository)
@@ -22,14 +22,14 @@ class DoingFragment:Fragment(R.layout.fragment_doing) {
 
     private lateinit var recyclerAdaptor: MyRecyclerAdaptor
 
-    private lateinit var binding: FragmentDoingBinding
+    private lateinit var binding: FragmentDoneBinding
 
-    private var doingList = mutableListOf<Task>()
+    private var doneList = mutableListOf<Task>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding = FragmentDoingBinding.bind(view)
+        binding = FragmentDoneBinding.bind(view)
 
         binding.isEmpty = false
 
@@ -38,18 +38,16 @@ class DoingFragment:Fragment(R.layout.fragment_doing) {
 
     private fun draw() {
 
-        viewModel.getTasks("Amirabbas", SituationOfTask.DOING).observe(viewLifecycleOwner){
-            doingList.clear()
-            doingList.addAll(it)
+        viewModel.getTasks("Amirabbas", SituationOfTask.DONE).observe(viewLifecycleOwner){
+            doneList.clear()
+            doneList.addAll(it)
             binding.isEmpty = it.isEmpty()
             recyclerAdaptor.notifyDataSetChanged()
         }
 
-        recyclerAdaptor = MyRecyclerAdaptor(doingList)
+        recyclerAdaptor = MyRecyclerAdaptor(doneList)
 
-        binding.recyclerViewDoing.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerViewDoing.adapter = recyclerAdaptor
+        binding.recyclerViewDone.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerViewDone.adapter = recyclerAdaptor
     }
-
-
 }

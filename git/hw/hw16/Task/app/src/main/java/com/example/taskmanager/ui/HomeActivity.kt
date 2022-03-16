@@ -8,13 +8,8 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.fragment.app.FragmentPagerAdapter
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.example.taskmanager.App
 import com.example.taskmanager.R
-import com.example.taskmanager.data.model.SituationOfTask
 import com.example.taskmanager.data.model.Task
 import com.example.taskmanager.databinding.ActivityHomeBinding
 import com.example.taskmanager.ui.viewmodel.CustomViewModelFactory
@@ -86,7 +81,7 @@ class HomeActivity : AppCompatActivity(){
 
         viewPagerAdaptor.addFragment(fragment = ToDoFragment(), "TODO")
         viewPagerAdaptor.addFragment(fragment = DoingFragment(), "DOING")
-        viewPagerAdaptor.addFragment(fragment = DoneFramgment(), "Done")
+        viewPagerAdaptor.addFragment(fragment = DoneFragment(), "Done")
         binding.viewPager.adapter = viewPagerAdaptor
     }
 }

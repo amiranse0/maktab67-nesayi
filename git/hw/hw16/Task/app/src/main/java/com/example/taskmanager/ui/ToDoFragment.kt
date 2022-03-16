@@ -35,7 +35,20 @@ class ToDoFragment : Fragment(R.layout.fragment_to_do) {
 
         binding = FragmentToDoBinding.bind(view)
 
+        binding.isEmpty = false
+
         draw()
+
+        showInfoDialog()
+    }
+
+    private fun showInfoDialog() {
+        recyclerAdaptor.setToClickOnTask(object : MyRecyclerAdaptor.ClickOnTask{
+            override fun clickOnTask(position: Int, view: View?) {
+                val addDialogFragment = TaskInfoDialog()
+                addDialogFragment.show(parentFragmentManager, "Info")
+            }
+        })
     }
 
     private fun draw() {
@@ -43,12 +56,13 @@ class ToDoFragment : Fragment(R.layout.fragment_to_do) {
         viewModel.getTasks("Amirabbas", SituationOfTask.TODO).observe(viewLifecycleOwner){
             toDoList.clear()
             toDoList.addAll(it)
+            binding.isEmpty = it.isEmpty()
             recyclerAdaptor.notifyDataSetChanged()
         }
 
         recyclerAdaptor = MyRecyclerAdaptor(toDoList)
 
-        binding.myRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.myRecyclerView.adapter = recyclerAdaptor
+        binding.recyclerViewToDo.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerViewToDo.adapter = recyclerAdaptor
     }
 }
