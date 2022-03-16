@@ -20,7 +20,7 @@ import java.sql.Time
 
 class ToDoFragment : Fragment(R.layout.fragment_to_do) {
 
-    private val viewModel:SharedViewModel by viewModels(factoryProducer = {
+    private val viewModel: SharedViewModel by viewModels(factoryProducer = {
         CustomViewModelFactory((requireActivity().application as App).serviceLocator.repository)
     })
 
@@ -43,7 +43,7 @@ class ToDoFragment : Fragment(R.layout.fragment_to_do) {
     }
 
     private fun showInfoDialog() {
-        recyclerAdaptor.setToClickOnTask(object : MyRecyclerAdaptor.ClickOnTask{
+        recyclerAdaptor.setToClickOnTask(object : MyRecyclerAdaptor.ClickOnTask {
             override fun clickOnTask(position: Int, view: View?) {
                 val addDialogFragment = TaskInfoDialog()
                 addDialogFragment.show(parentFragmentManager, "Info")
@@ -53,7 +53,7 @@ class ToDoFragment : Fragment(R.layout.fragment_to_do) {
 
     private fun draw() {
 
-        viewModel.getTasks("Amirabbas", SituationOfTask.TODO).observe(viewLifecycleOwner){
+        viewModel.getTasks("Amirabbas", SituationOfTask.TODO).observe(viewLifecycleOwner) {
             toDoList.clear()
             toDoList.addAll(it)
             binding.isEmpty = it.isEmpty()

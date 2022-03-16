@@ -42,7 +42,7 @@ class UserRepository(
         }
     }
 
-    fun getUser(userName: String):LiveData<List<User>>{
-        return localDataSource.getUser(userName)
+    fun getUser(userName: String, passWord:String):LiveData<List<User>>{
+        return localDataSource.getUser(userName,passWord)
     }
 }

@@ -10,54 +10,84 @@
         android:id="@+id/sign_up_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="35dp"
+        android:layout_margin="25dp"
         android:text="Sign up"
+        android:textColor="#0ff"
         android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/name_sign_up_ed"
-        android:layout_width="200dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/name_sign_up_ed_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="25dp"
-        android:hint="name"
+        android:textColorHint="#fff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username_sign_up_ed" />
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_tv">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/username_sign_up_ed"
-        android:layout_width="200dp"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/name_sign_up_ed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#0ff"
+            android:hint="name"
+            android:textColor="#fff" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/username_sign_up_ed_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_margin="25dp"
-        android:hint="username"
+        android:textColorHint="#fff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_sign_up_ed" />
+        app:layout_constraintTop_toBottomOf="@+id/name_sign_up_ed_layout">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/password_sign_up_ed"
-        android:layout_width="200dp"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/username_sign_up_ed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="#0ff"
+            android:hint="username"
+            android:textColor="#fff" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/password_sign_up_ed_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_margin="25dp"
-        android:hint="password"
+        android:textColorHint="#fff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_up_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/username_sign_up_ed_layout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password_sign_up_ed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="#0ff"
+            android:hint="password"
+            android:textColor="#fff" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/sign_up_button"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_margin="25dp"
+        android:backgroundTint="#0ff"
         android:text="sign up"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_sign_up_ed" />
+        app:layout_constraintTop_toBottomOf="@+id/password_sign_up_ed_layout" />
 
     <TextView
         android:id="@+id/go_to_login"
@@ -67,9 +97,11 @@
         android:clickable="true"
         android:focusable="true"
         android:text="I already have an account"
+        android:textColor="#0ff"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sign_up_button" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

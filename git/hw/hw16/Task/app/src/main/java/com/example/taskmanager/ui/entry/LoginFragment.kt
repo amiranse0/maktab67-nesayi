@@ -2,7 +2,9 @@ package com.example.taskmanager.ui.entry
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -38,9 +40,19 @@ class LoginFragment:Fragment(R.layout.fragment_login) {
     private fun goToHomeActivity() {
         binding.loginButton.setOnClickListener{
             val username = binding.usernameLoginEd.text.toString()
-            viewModel.usernameLiveData.postValue(username)
-            val intent = Intent(requireContext(), HomeActivity::class.java)
-            startActivity(intent)
+            val passWord = binding.passwordLoginEd.text.toString()
+            viewModel.getUserUserName(username, passWord).observe(viewLifecycleOwner){
+                if (it == ""){
+                    Log.d("LOGIN", "NO")
+                }
+                else {
+                    val intent = Intent(requireContext(), HomeActivity::class.java)
+                    intent.putExtra("username", it)
+                    startActivity(intent)
+                }
+            }
+
+
         }
     }
 }

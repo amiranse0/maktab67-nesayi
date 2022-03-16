@@ -7,7 +7,7 @@ import com.example.taskmanager.data.model.User
 
 @Dao
 interface UserDao {
-    @Insert(onConflict = ABORT)
+    @Insert()
     fun addNewUser(user: User)
 
     @Delete
@@ -16,6 +16,6 @@ interface UserDao {
     @Update
     fun updateUser(user: User)
 
-    @Query("SELECT * FROM user WHERE userName == :userName")
-    fun getUser(userName:String): LiveData<List<User>>
+    @Query("SELECT * FROM user WHERE userName == :userName AND password == :passWord")
+    fun getUser(userName:String, passWord:String): LiveData<List<User>>
 }

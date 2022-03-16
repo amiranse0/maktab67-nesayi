@@ -8,22 +8,18 @@ import com.example.taskmanager.data.model.User
 import com.example.taskmanager.data.repository.UserRepository
 
 class LoginViewModel(private val repository: UserRepository):ViewModel() {
-    private val _usernameLiveData = MutableLiveData<String>()
-    var usernameLiveData = _usernameLiveData
 
-    private var _userLiveData = MutableLiveData<User>()
-    val userLiveData = _userLiveData
-
-    fun setUser(username: String){
-        _usernameLiveData.postValue(username)
+    fun createUser(user: User){
+        repository.addNewUser(user)
     }
 
-    fun getUserFromDataBase(){
-        val temp = _usernameLiveData.value?.let {
-            repository.getUser(it).map {
-                it[0]
-            }
+    fun getUserUserName(userName:String, passWord:String):LiveData<String>{
+        val _username = repository.getUser(userName, passWord).map {
+            var username = ""
+            if (it.size == 1) username = it[0].userName
+            username
         }
-        _userLiveData = temp as MutableLiveData<User>
+        return _username
     }
+
 }
