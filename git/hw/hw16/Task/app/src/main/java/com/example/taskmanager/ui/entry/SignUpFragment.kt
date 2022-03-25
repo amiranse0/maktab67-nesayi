@@ -13,13 +13,13 @@ import com.example.taskmanager.databinding.FragmentSignUpBinding
 import com.example.taskmanager.ui.HomeActivity
 import com.example.taskmanager.ui.viewmodel.CustomViewModelFactory
 
-class SignUpFragment:Fragment(R.layout.fragment_sign_up) {
+class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
 
     private val viewModel: LoginViewModel by viewModels(factoryProducer = {
         CustomViewModelFactory((requireActivity().application as App).serviceLocator.repository)
     })
 
-    lateinit var binding:FragmentSignUpBinding
+    lateinit var binding: FragmentSignUpBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,7 +28,9 @@ class SignUpFragment:Fragment(R.layout.fragment_sign_up) {
         createUser()
 
         backToLogin()
+
     }
+
 
     private fun backToLogin() {
         binding.goToLogin.setOnClickListener {
@@ -37,17 +39,23 @@ class SignUpFragment:Fragment(R.layout.fragment_sign_up) {
     }
 
     private fun createUser() {
-        binding.signUpButton.setOnClickListener{
+        binding.signUpButton.setOnClickListener {
             val username = binding.usernameSignUpEd.text.toString()
             val password = binding.passwordSignUpEd.text.toString()
             val name = binding.nameSignUpEd.text.toString()
             val user = User(name = name, userName = username, password = password)
+            viewModel.checkForConflict(username).observe(viewLifecycleOwner) {
+                if (it) {
+                    binding.usernameSignUpEd.error = "this username is taken"
+                } else {
+                    viewModel.createUser(user)
 
-            viewModel.createUser(user)
+                    val intent = Intent(requireContext(), HomeActivity::class.java)
+                    intent.putExtra("username", username)
+                    startActivity(intent)
+                }
+            }
 
-            val intent = Intent(requireContext(), HomeActivity::class.java)
-            intent.putExtra("username", username)
-            startActivity(intent)
         }
     }
 }

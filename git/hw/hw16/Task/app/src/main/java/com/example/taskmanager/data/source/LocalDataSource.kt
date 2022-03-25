@@ -1,6 +1,8 @@
 package com.example.taskmanager.data.source
 
+import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.taskmanager.data.DataSource
 import com.example.taskmanager.data.model.SituationOfTask
 import com.example.taskmanager.data.model.Task
@@ -39,6 +41,10 @@ class LocalDataSource(private val userDao: UserDao, private val taskDao: TaskDao
 
     override fun getUser(userName: String, passWord:String): LiveData<List<User>> {
         return userDao.getUser(userName, passWord)
+    }
+
+    override fun getUserWithUsername(userName: String): LiveData<List<User>> {
+        return userDao.getUserWithUserName(userName)
     }
 
 }

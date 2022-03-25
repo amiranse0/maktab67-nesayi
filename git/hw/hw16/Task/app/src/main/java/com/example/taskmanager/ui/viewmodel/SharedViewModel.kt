@@ -1,7 +1,6 @@
 package com.example.taskmanager.ui.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,12 +10,16 @@ import com.example.taskmanager.data.repository.UserRepository
 
 class SharedViewModel(private val repository: UserRepository) : ViewModel() {
 
-    private var _timeLiveData = MutableLiveData<String>()
-    val timeLiveData = _timeLiveData
-    private var _dateLiveData = MutableLiveData<String>()
-    val dateLiveData = _dateLiveData
+    var username = ""
+        get() = field
+        set(value) {field = value}
 
+    private var _fragmentNameLiveData = MutableLiveData("TODO")
+    var fragmentNameLiveData = _fragmentNameLiveData
 
+    fun setFragmentName(fragmentName:String){
+        _fragmentNameLiveData.postValue(fragmentName)
+    }
 
     fun addNewTask(task: Task) {
         repository.addNewTask(task)

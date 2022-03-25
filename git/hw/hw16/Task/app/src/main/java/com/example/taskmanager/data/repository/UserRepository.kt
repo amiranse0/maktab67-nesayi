@@ -1,6 +1,8 @@
 package com.example.taskmanager.data.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.taskmanager.data.DataSource
 import com.example.taskmanager.data.model.SituationOfTask
 import com.example.taskmanager.data.model.Task
@@ -45,4 +47,9 @@ class UserRepository(
     fun getUser(userName: String, passWord:String):LiveData<List<User>>{
         return localDataSource.getUser(userName,passWord)
     }
+
+    fun getUserWithUsername(userName: String):LiveData<List<User>>{
+        return localDataSource.getUserWithUsername(userName)
+    }
+
 }

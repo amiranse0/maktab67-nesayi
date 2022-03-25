@@ -29,6 +29,7 @@ class LoginFragment:Fragment(R.layout.fragment_login) {
 
         goToHomeActivity()
         goToSignUpFragment()
+
     }
 
     private fun goToSignUpFragment() {
@@ -43,7 +44,7 @@ class LoginFragment:Fragment(R.layout.fragment_login) {
             val passWord = binding.passwordLoginEd.text.toString()
             viewModel.getUserUserName(username, passWord).observe(viewLifecycleOwner){
                 if (it == ""){
-                    Log.d("LOGIN", "NO")
+                    binding.passwordLoginEdLayout.error = "password or username is wrong"
                 }
                 else {
                     val intent = Intent(requireContext(), HomeActivity::class.java)

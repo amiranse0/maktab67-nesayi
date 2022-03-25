@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.TaskManager" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimary">#0ff</item>
         <item name="colorPrimaryVariant">#0ff</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->

@@ -1,6 +1,7 @@
 package com.example.taskmanager.ui
 
 import AddDialogFragment
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -33,6 +34,24 @@ class HomeActivity : AppCompatActivity(){
         handleViewPager()
 
         addNewTaskDialog()
+
+        setUserName()
+
+        topMenu()
+    }
+
+    private fun topMenu() {
+        binding.username = viewModel.username
+        viewModel.fragmentNameLiveData.observe(this){
+            binding.fragmentName = it
+        }
+    }
+
+    private fun setUserName() {
+        val userName = intent.getStringExtra("username")
+        if (userName != null) {
+            viewModel.username = userName
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

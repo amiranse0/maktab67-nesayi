@@ -1,13 +1,18 @@
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.viewModels
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
+import com.example.taskmanager.App
 import com.example.taskmanager.R
 import com.example.taskmanager.data.model.SituationOfTask
 import com.example.taskmanager.data.model.Task
 import com.example.taskmanager.databinding.AddFragmentDialogBinding
 import com.example.taskmanager.ui.DatePickerDialog
 import com.example.taskmanager.ui.TimePickerDialog
+import com.example.taskmanager.ui.viewmodel.CustomViewModelFactory
+import com.example.taskmanager.ui.viewmodel.SharedViewModel
 
 class AddDialogFragment : DialogFragment(R.layout.add_fragment_dialog) {
     private lateinit var binding: AddFragmentDialogBinding
@@ -15,6 +20,10 @@ class AddDialogFragment : DialogFragment(R.layout.add_fragment_dialog) {
     private lateinit var getTask: GetTask
     private var timePicked = ""
     private var datePicked = ""
+
+    private val viewModel: SharedViewModel by viewModels(factoryProducer = {
+        CustomViewModelFactory((requireActivity().application as App).serviceLocator.repository)
+    })
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -26,6 +35,9 @@ class AddDialogFragment : DialogFragment(R.layout.add_fragment_dialog) {
     }
 
     private fun createTask() {
+
+        val username = viewModel.username
+
         binding.saveTaskButton.setOnClickListener {
             getTask.getTask(
                 Task(
@@ -34,7 +46,7 @@ class AddDialogFragment : DialogFragment(R.layout.add_fragment_dialog) {
                     date = datePicked,
                     time = timePicked,
                     situationOfTask = if (binding.isDoneCheckButton.isChecked) SituationOfTask.DONE else SituationOfTask.TODO,
-                    userUserName = "Amirabbas"
+                    userUserName = username
                 )
             )
 
