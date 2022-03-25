@@ -25,6 +25,12 @@ class UserRepository(
         return localDataSource.getUserTask(userName, situationOfTask)
     }
 
+    fun setImage(task: Task){
+        executorService.submit {
+            localDataSource.setImageForTask(task)
+        }
+    }
+
     //users
     fun addNewUser(user: User){
         executorService.submit {

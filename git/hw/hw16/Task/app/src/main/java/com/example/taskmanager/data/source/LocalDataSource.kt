@@ -47,4 +47,7 @@ class LocalDataSource(private val userDao: UserDao, private val taskDao: TaskDao
         return userDao.getUserWithUserName(userName)
     }
 
+    override fun setImageForTask(task: Task) {
+        return taskDao.setIamge(task)
+    }
 }

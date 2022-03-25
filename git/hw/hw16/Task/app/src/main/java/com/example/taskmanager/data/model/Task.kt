@@ -1,5 +1,7 @@
 package com.example.taskmanager.data.model
 
+import android.graphics.Bitmap
+import android.net.Uri
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.CASCADE
@@ -16,5 +18,6 @@ data class Task(
     val date: String,
     val time: String,
     var situationOfTask: SituationOfTask,
+    var picture:ByteArray? = null,
     val userUserName:String
 )

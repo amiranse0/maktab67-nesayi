@@ -19,4 +19,7 @@ interface TaskDao {
     @Update
     fun updateTask(task: Task)
 
+    @Update
+    fun setIamge(task: Task)
+
 }

@@ -1,11 +1,18 @@
 package com.example.taskmanager.ui
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toUri
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
+import coil.load
 import com.example.taskmanager.App
 import com.example.taskmanager.R
 import com.example.taskmanager.data.model.SituationOfTask
@@ -14,6 +21,7 @@ import com.example.taskmanager.databinding.FragmentDoingBinding
 import com.example.taskmanager.databinding.FragmentTaskInfoBinding
 import com.example.taskmanager.ui.viewmodel.CustomViewModelFactory
 import com.example.taskmanager.ui.viewmodel.SharedViewModel
+import java.io.ByteArrayOutputStream
 
 class TaskInfoDialog(val task: Task) : DialogFragment(R.layout.fragment_task_info) {
 
@@ -23,6 +31,7 @@ class TaskInfoDialog(val task: Task) : DialogFragment(R.layout.fragment_task_inf
         CustomViewModelFactory((requireActivity().application as App).serviceLocator.repository)
     })
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTaskInfoBinding.bind(view)
@@ -30,6 +39,8 @@ class TaskInfoDialog(val task: Task) : DialogFragment(R.layout.fragment_task_inf
         showInfo()
 
         share()
+
+        getImageFromGallery()
 
     }
 
@@ -48,11 +59,35 @@ class TaskInfoDialog(val task: Task) : DialogFragment(R.layout.fragment_task_inf
         binding.timeTaskInfo.text = task.time
         binding.titleTaskInfo.text = task.title
         binding.descriptionTaskInfo.text = task.description
+        val picture = task.picture
+        if (picture != null){
+            binding.imageTaskInfo.load(BitmapFactory.decodeByteArray(picture, 0 , picture.size))
+        }
 
         when(task.situationOfTask){
             SituationOfTask.TODO -> binding.toDoRadioButton.isChecked = true
             SituationOfTask.DONE -> binding.doneRadioButton.isChecked = true
             SituationOfTask.DOING -> binding.doingRadioButton.isChecked = true
+        }
+    }
+
+    private fun getImageFromGallery(){
+        val loadImage = registerForActivityResult(ActivityResultContracts.GetContent()){
+            val stream = requireContext().getContentResolver().openInputStream(it)
+            val bitmap = BitmapFactory.decodeStream(stream)
+
+            binding.imageTaskInfo.load(bitmap)
+
+            val bos = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100 , bos)
+            val byteArray: ByteArray = bos.toByteArray()
+
+            task.picture = byteArray
+            viewModel.setImage(task)
+        }
+
+        binding.imageTaskInfo.setOnClickListener {
+            loadImage.launch("image/*")
         }
     }
 

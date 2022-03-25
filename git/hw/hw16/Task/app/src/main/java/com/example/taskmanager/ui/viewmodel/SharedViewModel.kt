@@ -29,4 +29,8 @@ class SharedViewModel(private val repository: UserRepository) : ViewModel() {
         return repository.getUserTask(username, situationOfTask)
     }
 
+    fun setImage(task: Task){
+        repository.setImage(task)
+    }
+
 }
