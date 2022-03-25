@@ -6,6 +6,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.example.taskmanager.App
 import com.example.taskmanager.R
+import com.example.taskmanager.data.UserNameClass
 import com.example.taskmanager.data.model.SituationOfTask
 import com.example.taskmanager.data.model.Task
 import com.example.taskmanager.databinding.AddFragmentDialogBinding
@@ -36,7 +37,9 @@ class AddDialogFragment : DialogFragment(R.layout.add_fragment_dialog) {
 
     private fun createTask() {
 
-        val username = viewModel.username
+        var username = UserNameClass.username
+
+        Log.d("TAG1", username)
 
         binding.saveTaskButton.setOnClickListener {
             getTask.getTask(

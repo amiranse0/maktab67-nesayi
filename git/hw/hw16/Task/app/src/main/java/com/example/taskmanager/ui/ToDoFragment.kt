@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.taskmanager.App
 import com.example.taskmanager.R
+import com.example.taskmanager.data.UserNameClass
 import com.example.taskmanager.data.model.SituationOfTask
 import com.example.taskmanager.data.model.Task
 import com.example.taskmanager.databinding.FragmentToDoBinding
@@ -51,7 +52,7 @@ class ToDoFragment : Fragment(R.layout.fragment_to_do) {
 
     private fun draw() {
 
-        val username = viewModel.username
+        val username = UserNameClass.username
 
         viewModel.getTasks(username, SituationOfTask.TODO).observe(viewLifecycleOwner) {
             toDoList.clear()

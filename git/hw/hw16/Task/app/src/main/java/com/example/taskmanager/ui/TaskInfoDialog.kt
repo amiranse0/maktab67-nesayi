@@ -5,11 +5,15 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.RadioGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import coil.load
@@ -42,10 +46,99 @@ class TaskInfoDialog(val task: Task) : DialogFragment(R.layout.fragment_task_inf
 
         getImageFromGallery()
 
+        editTask()
+
+        deleteTask()
+
+    }
+
+    private fun deleteTask() {
+        binding.deleteTaskInfo.setOnClickListener{
+            viewModel.deleteTask(task)
+            dismiss()
+        }
+    }
+
+    private fun editTask() {
+        binding.titleTaskInfo.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                task.title = binding.titleTaskInfo.text.toString()
+                viewModel.updateTask(task)
+            }
+        })
+
+        binding.descriptionTaskInfo.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                task.description = binding.descriptionTaskInfo.text.toString()
+                viewModel.updateTask(task)
+            }
+        })
+
+        editTime()
+
+        editDate()
+
+        changeSituation()
+    }
+
+    private fun editDate() {
+        binding.textInputLayout4.setEndIconOnClickListener {
+            val dateDialog = DatePickerDialog()
+            dateDialog.setGetDate(object : DatePickerDialog.GetDate{
+                override fun getDateFromDialog(date: String) {
+                    task.date = date
+                    binding.dateTaskInfo.setText(date)
+                    viewModel.updateTask(task)
+                }
+            })
+            dateDialog.show(parentFragmentManager, "Date")
+        }
+    }
+
+    private fun editTime() {
+        binding.textInputLayout3.setEndIconOnClickListener {
+            val timeDialog = TimePickerDialog()
+            timeDialog.setGetTime(object : TimePickerDialog.GetTime{
+                override fun getTimeFromDialog(time: String) {
+                    task.time = time
+                    binding.timeTaskInfo.setText(time)
+                    viewModel.updateTask(task)
+                }
+            })
+            timeDialog.show(parentFragmentManager, "Time")
+        }
+    }
+
+    private fun changeSituation() {
+        binding.radioGroup.setOnCheckedChangeListener(object : RadioGroup.OnCheckedChangeListener{
+            override fun onCheckedChanged(p0: RadioGroup?, p1: Int) {
+                if (binding.toDoRadioButton.isChecked) task.situationOfTask = SituationOfTask.TODO
+                else if (binding.doingRadioButton.isChecked) task.situationOfTask = SituationOfTask.DOING
+                else if (binding.doneRadioButton.isChecked) task.situationOfTask = SituationOfTask.DONE
+
+                viewModel.updateTask(task)
+            }
+        })
     }
 
     private fun share() {
-        binding.shareTaskInfo.setOnClickListener{
+        binding.shareTaskInfo.setOnClickListener {
             val intent = Intent(Intent.ACTION_SEND)
             intent.type = "text/plain"
             intent.putExtra(Intent.EXTRA_TEXT, task.toString())
@@ -55,31 +148,32 @@ class TaskInfoDialog(val task: Task) : DialogFragment(R.layout.fragment_task_inf
     }
 
     private fun showInfo() {
-        binding.dateTaskInfo.text = task.date
-        binding.timeTaskInfo.text = task.time
-        binding.titleTaskInfo.text = task.title
-        binding.descriptionTaskInfo.text = task.description
+
+        binding.dateTaskInfo.setText(task.date)
+        binding.timeTaskInfo.setText(task.time)
+        binding.titleTaskInfo.setText(task.title)
+        binding.descriptionTaskInfo.setText(task.description)
         val picture = task.picture
-        if (picture != null){
-            binding.imageTaskInfo.load(BitmapFactory.decodeByteArray(picture, 0 , picture.size))
+        if (picture != null) {
+            binding.imageTaskInfo.load(BitmapFactory.decodeByteArray(picture, 0, picture.size))
         }
 
-        when(task.situationOfTask){
+        when (task.situationOfTask) {
             SituationOfTask.TODO -> binding.toDoRadioButton.isChecked = true
             SituationOfTask.DONE -> binding.doneRadioButton.isChecked = true
             SituationOfTask.DOING -> binding.doingRadioButton.isChecked = true
         }
     }
 
-    private fun getImageFromGallery(){
-        val loadImage = registerForActivityResult(ActivityResultContracts.GetContent()){
+    private fun getImageFromGallery() {
+        val loadImage = registerForActivityResult(ActivityResultContracts.GetContent()) {
             val stream = requireContext().getContentResolver().openInputStream(it)
             val bitmap = BitmapFactory.decodeStream(stream)
 
             binding.imageTaskInfo.load(bitmap)
 
             val bos = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100 , bos)
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos)
             val byteArray: ByteArray = bos.toByteArray()
 
             task.picture = byteArray

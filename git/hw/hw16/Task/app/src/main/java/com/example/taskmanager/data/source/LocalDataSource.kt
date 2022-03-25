@@ -11,6 +11,7 @@ import com.example.taskmanager.data.room.TaskDao
 import com.example.taskmanager.data.room.UserDao
 
 class LocalDataSource(private val userDao: UserDao, private val taskDao: TaskDao):DataSource {
+    //task
     override fun addNewTask(task: Task) {
         taskDao.addNewTask(task)
     }
@@ -27,6 +28,15 @@ class LocalDataSource(private val userDao: UserDao, private val taskDao: TaskDao
         taskDao.updateTask(task)
     }
 
+    override fun setImageForTask(task: Task) {
+        return taskDao.setIamge(task)
+    }
+
+    override fun getAllTask(userName: String):LiveData<List<Task>> {
+        return taskDao.getAllTask(userName)
+    }
+
+    //user
     override fun addNewUser(user: User) {
         userDao.addNewUser(user)
     }
@@ -47,7 +57,4 @@ class LocalDataSource(private val userDao: UserDao, private val taskDao: TaskDao
         return userDao.getUserWithUserName(userName)
     }
 
-    override fun setImageForTask(task: Task) {
-        return taskDao.setIamge(task)
-    }
 }

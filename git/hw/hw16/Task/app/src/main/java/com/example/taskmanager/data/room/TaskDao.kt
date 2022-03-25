@@ -22,4 +22,7 @@ interface TaskDao {
     @Update
     fun setIamge(task: Task)
 
+    @Query("SELECT * FROM TASK WHERE TASK.userUserName == :userName")
+    fun getAllTask(userName: String):LiveData<List<Task>>
+
 }

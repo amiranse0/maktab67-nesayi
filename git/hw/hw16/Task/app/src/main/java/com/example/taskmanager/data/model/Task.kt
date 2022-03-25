@@ -13,10 +13,10 @@ import java.util.*
 data class Task(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val title: String,
-    val description: String,
-    val date: String,
-    val time: String,
+    var title: String,
+    var description: String,
+    var date: String,
+    var time: String,
     var situationOfTask: SituationOfTask,
     var picture:ByteArray? = null,
     val userUserName:String

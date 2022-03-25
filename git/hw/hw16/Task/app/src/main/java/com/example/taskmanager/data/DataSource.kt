@@ -13,6 +13,7 @@ interface DataSource {
     fun deleteTask(task: Task)
     fun updateTask(task: Task)
     fun setImageForTask(task: Task)
+    fun getAllTask(userName: String):LiveData<List<Task>>
     //user
     fun addNewUser(user: User)
     fun deleteUser(user: User)

@@ -4,9 +4,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.taskmanager.data.DataSource
+import com.example.taskmanager.data.UserNameClass
 import com.example.taskmanager.data.model.SituationOfTask
 import com.example.taskmanager.data.model.Task
 import com.example.taskmanager.data.model.User
+import java.security.cert.LDAPCertStoreParameters
 import java.util.concurrent.ExecutorService
 
 class UserRepository(
@@ -29,6 +31,22 @@ class UserRepository(
         executorService.submit {
             localDataSource.setImageForTask(task)
         }
+    }
+
+    fun updateTask(task: Task){
+        executorService.submit {
+            localDataSource.updateTask(task)
+        }
+    }
+
+    fun deleteTask(task: Task){
+        executorService.submit {
+            localDataSource.deleteTask(task)
+        }
+    }
+
+    fun getAllTasks(userName: String):LiveData<List<Task>>{
+        return localDataSource.getAllTask(userName)
     }
 
     //users
