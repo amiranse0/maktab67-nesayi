@@ -11,11 +11,10 @@ import com.example.taskmanager.data.repository.UserRepository
 
 class SharedViewModel(private val repository: UserRepository) : ViewModel() {
 
-    private var _fragmentNameLiveData = MutableLiveData("TODO")
-    var fragmentNameLiveData = _fragmentNameLiveData
+    var fragmentNameLiveData = MutableLiveData("TODO")
 
     fun setFragmentName(fragmentName:String){
-        _fragmentNameLiveData.postValue(fragmentName)
+        fragmentNameLiveData.postValue(fragmentName)
     }
 
     fun addNewTask(task: Task) {
@@ -40,6 +39,16 @@ class SharedViewModel(private val repository: UserRepository) : ViewModel() {
 
     fun getAllTask(username: String):LiveData<List<Task>>{
         return repository.getAllTasks(username)
+    }
+
+    fun searchQuery(searchSuery: String): LiveData<List<Task>>{
+        var situation = SituationOfTask.TODO
+        when(fragmentNameLiveData.value){
+            "DONE" -> situation = SituationOfTask.DONE
+            "DOING" -> situation = SituationOfTask.DOING
+            "TODO" -> situation = SituationOfTask.TODO
+        }
+        return repository.searchQuery(searchSuery,situation)
     }
 
 }

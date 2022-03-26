@@ -1,32 +1,16 @@
 package com.example.taskmanager.ui
 
-import androidx.annotation.NonNull
-import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class ViewPagerAdaptor(@NonNull fragmentManager: FragmentManager, behavior: Int) :
-    FragmentPagerAdapter(fragmentManager, behavior) {
-
-    private final val listOfFragment = mutableListOf<Fragment>()
-    private final val listOfTitle = mutableListOf<String>()
-
-    override fun getCount(): Int {
-        return listOfFragment.size
+class ViewPagerAdaptor(private val items: List<Fragment>, activity: AppCompatActivity) :
+    FragmentStateAdapter(activity) {
+    override fun getItemCount(): Int {
+        return items.size
     }
 
-    override fun getItem(position: Int): Fragment {
-        return listOfFragment.get(position)
-    }
-
-    fun addFragment(fragment: Fragment, title:String){
-        listOfFragment.add(fragment)
-        listOfTitle.add(title)
-    }
-
-    @NonNull
-    override fun getPageTitle(position: Int):CharSequence{
-        return listOfTitle.get(position)
+    override fun createFragment(position: Int): Fragment {
+        return items[position]
     }
 }

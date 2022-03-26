@@ -23,6 +23,9 @@ interface TaskDao {
     fun setIamge(task: Task)
 
     @Query("SELECT * FROM TASK WHERE TASK.userUserName == :userName")
-    fun getAllTask(userName: String):LiveData<List<Task>>
+    fun getAllTask(userName: String): LiveData<List<Task>>
+
+    @Query("SELECT * FROM TASK WHERE (TASK.title LIKE :searchQuery OR TASK.description LIKE :searchQuery) AND TASK.situationOfTask == :situationOfTask")
+    fun searchQuery(searchQuery: String, situationOfTask: SituationOfTask): LiveData<List<Task>>
 
 }

@@ -1,6 +1,7 @@
 package com.example.netflix.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
@@ -21,6 +22,8 @@ class FragmentHome : Fragment(R.layout.home_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = HomeFragmentBinding.bind(view)
+
+        Log.d("TAG", "home: ${ viewModel }")
 
         viewModel.getMovieFromServer()
 

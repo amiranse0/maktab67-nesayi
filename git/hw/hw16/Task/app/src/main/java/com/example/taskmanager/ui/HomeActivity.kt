@@ -2,16 +2,11 @@ package com.example.taskmanager.ui
 
 import AddDialogFragment
 import android.content.DialogInterface
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.Settings.Secure.getString
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.Toast
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.FragmentPagerAdapter
 import com.example.taskmanager.App
 import com.example.taskmanager.R
 import com.example.taskmanager.data.UserNameClass
@@ -19,10 +14,11 @@ import com.example.taskmanager.data.model.Task
 import com.example.taskmanager.databinding.ActivityHomeBinding
 import com.example.taskmanager.ui.viewmodel.CustomViewModelFactory
 import com.example.taskmanager.ui.viewmodel.SharedViewModel
+import androidx.appcompat.widget.SearchView
+import com.google.android.material.tabs.TabLayoutMediator
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
-    lateinit var viewPagerAdaptor: ViewPagerAdaptor
     lateinit var binding: ActivityHomeBinding
 
     private val viewModel: SharedViewModel by viewModels(factoryProducer = {
@@ -44,6 +40,33 @@ class HomeActivity : AppCompatActivity() {
         topMenu()
 
         clickProfile()
+
+        search()
+    }
+
+    private fun search() {
+        val search = binding.homeToolBar.customAppBar.menu.findItem(R.id.search_menu)
+        val searchView = search.actionView as SearchView
+        searchView.isSubmitButtonEnabled = true
+        searchView.setOnQueryTextListener(this)
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if (query != null) searchQuery(query)
+        return true
+    }
+
+    override fun onQueryTextChange(query: String?): Boolean {
+        if (query != null) searchQuery(query)
+        return true
+    }
+
+    private fun searchQuery(query: String){
+        val searchQuery = "%$query%"
+
+        viewModel.searchQuery(searchQuery).observe(this){
+
+        }
     }
 
     private fun clickProfile() {
@@ -83,6 +106,7 @@ class HomeActivity : AppCompatActivity() {
     private fun topMenu() {
         binding.username = UserNameClass.username
         viewModel.fragmentNameLiveData.observe(this) {
+            Log.d("TAG", it)
             binding.fragmentName = it
         }
     }
@@ -108,16 +132,19 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun handleViewPager() {
-        viewPagerAdaptor = ViewPagerAdaptor(
-            supportFragmentManager,
-            FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
-        )
+        val viewPager = binding.viewPager
+        val items = listOf(ToDoFragment(), DoingFragment(), DoneFragment())
 
-        binding.tabLayout.setupWithViewPager(binding.viewPager)
+        val adapter  = ViewPagerAdaptor(items, this)
+        viewPager.adapter = adapter
 
-        viewPagerAdaptor.addFragment(fragment = ToDoFragment(), "TODO")
-        viewPagerAdaptor.addFragment(fragment = DoingFragment(), "DOING")
-        viewPagerAdaptor.addFragment(fragment = DoneFragment(), "Done")
-        binding.viewPager.adapter = viewPagerAdaptor
+        val tabs = binding.tabLayout
+        TabLayoutMediator(tabs, viewPager){tab,pos->
+            when(pos){
+                0-> tab.text = "TODO"
+                1-> tab.text = "DOING"
+                2-> tab.text = "DONE"
+            }
+        }.attach()
     }
 }

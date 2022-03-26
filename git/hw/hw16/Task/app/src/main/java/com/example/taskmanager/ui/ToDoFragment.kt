@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.taskmanager.App
@@ -18,7 +19,7 @@ import com.example.taskmanager.ui.viewmodel.SharedViewModel
 
 class ToDoFragment : Fragment(R.layout.fragment_to_do) {
 
-    private val viewModel: SharedViewModel by viewModels(factoryProducer = {
+    private val viewModel: SharedViewModel by activityViewModels(factoryProducer = {
         CustomViewModelFactory((requireActivity().application as App).serviceLocator.repository)
     })
 

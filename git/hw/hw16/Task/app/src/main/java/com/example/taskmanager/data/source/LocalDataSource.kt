@@ -36,6 +36,13 @@ class LocalDataSource(private val userDao: UserDao, private val taskDao: TaskDao
         return taskDao.getAllTask(userName)
     }
 
+    override fun searchQuery(
+        searchQuery: String,
+        situationOfTask: SituationOfTask
+    ): LiveData<List<Task>> {
+        return taskDao.searchQuery(searchQuery, situationOfTask)
+    }
+
     //user
     override fun addNewUser(user: User) {
         userDao.addNewUser(user)

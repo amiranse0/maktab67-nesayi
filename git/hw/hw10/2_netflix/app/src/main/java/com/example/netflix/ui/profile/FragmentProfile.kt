@@ -40,6 +40,8 @@ class FragmentProfile : Fragment(R.layout.profile_fragment) {
         super.onViewCreated(view, savedInstanceState)
         binding = ProfileFragmentBinding.bind(view)
 
+        Log.d("TAG", "profile: ${ viewModel }")
+
         var isRegistered = sharedPreferences.getBoolean("isRegistered", false)
 
         if (isRegistered) {
