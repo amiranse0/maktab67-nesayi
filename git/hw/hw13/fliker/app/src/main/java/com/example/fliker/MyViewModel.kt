@@ -1,9 +1,11 @@
 package com.example.fliker
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.quizretrofit.NetworkManager
+import com.github.leonardoxh.livedatacalladapter.Resource
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -11,7 +13,7 @@ import retrofit2.Response
 class MyViewModel : ViewModel() {
     var listImages = MutableLiveData<List<String>>()
 
-    fun getImageFromServer() {
+    fun getImageFromServer():LiveData<Resource<ImageProperties>> {
         val hashMapQuery = hashMapOf(
             "api_key" to "1c04e05bce6e626247758d120b372a73",
             "method" to "flickr.photos.getPopular",
@@ -23,21 +25,7 @@ class MyViewModel : ViewModel() {
             "page" to "1"
         )
 
-        val call = NetworkManager.service.getImage(hashMapQuery)
-        call.enqueue(object : Callback<ImageProperties>{
-            override fun onResponse(
-                call: Call<ImageProperties>,
-                response: Response<ImageProperties>
-            ) {
-                listImages.postValue(response.body()?.photos?.photo?.map {
-                    it.url_s
-                })
-                Log.d("TAG", listImages.value?.size.toString())
-            }
+        return NetworkManager.service.getImage(hashMapQuery)
 
-            override fun onFailure(call: Call<ImageProperties>, t: Throwable) {
-                Log.d("TAG", t.message.toString())
-            }
-        })
     }
 }

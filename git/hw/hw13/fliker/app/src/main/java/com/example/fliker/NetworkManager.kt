@@ -1,5 +1,7 @@
 package com.example.quizretrofit
 
+import com.github.leonardoxh.livedatacalladapter.LiveDataCallAdapterFactory
+import com.github.leonardoxh.livedatacalladapter.LiveDataResponseBodyConverterFactory
 import okhttp3.ConnectionPool
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -20,6 +22,8 @@ object NetworkManager {
     private var retrofit: Retrofit = Retrofit.Builder()
         .client(client)
         .baseUrl("https://www.flickr.com/services/rest/")
+        .addCallAdapterFactory(LiveDataCallAdapterFactory.create())
+        .addConverterFactory(LiveDataResponseBodyConverterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

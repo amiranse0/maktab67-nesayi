@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fliker.databinding.ActivityMainBinding
 import com.example.quizretrofit.RecyclerAdaptor
+import com.github.leonardoxh.livedatacalladapter.Resource
+import retrofit2.Response
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,10 +33,17 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView = binding.rec
 
-        viewModel.listImages.observe(this) {
-            listImages.clear()
-            listImages.addAll(it)
-            recyclerAdaptor.notifyDataSetChanged()
+        viewModel.getImageFromServer().observe(this) { res ->
+            if (res.isSuccess){
+                listImages.clear()
+                val newList:List<String>? = res.resource?.photos?.photo?.map {it->
+                    it.url_s
+                }
+                if (newList != null) {
+                    listImages.addAll(newList)
+                }
+                recyclerAdaptor.notifyDataSetChanged()
+            }
         }
 
         recyclerView.layoutManager = GridLayoutManager(this, 4)
