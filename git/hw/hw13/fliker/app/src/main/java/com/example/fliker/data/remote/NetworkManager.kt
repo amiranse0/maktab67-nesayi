@@ -1,13 +1,9 @@
-package com.example.quizretrofit
+package com.example.fliker.data.remote
 
-import com.github.leonardoxh.livedatacalladapter.LiveDataCallAdapterFactory
-import com.github.leonardoxh.livedatacalladapter.LiveDataResponseBodyConverterFactory
-import okhttp3.ConnectionPool
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
 
 object NetworkManager {
 
@@ -22,8 +18,7 @@ object NetworkManager {
     private var retrofit: Retrofit = Retrofit.Builder()
         .client(client)
         .baseUrl("https://www.flickr.com/services/rest/")
-        .addCallAdapterFactory(LiveDataCallAdapterFactory.create())
-        .addConverterFactory(LiveDataResponseBodyConverterFactory.create())
+        .addCallAdapterFactory(LiveDataCallAdapterFactory())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

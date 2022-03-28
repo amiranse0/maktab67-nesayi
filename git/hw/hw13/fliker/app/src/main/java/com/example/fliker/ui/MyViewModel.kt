@@ -1,19 +1,16 @@
-package com.example.fliker
+package com.example.fliker.ui
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.quizretrofit.NetworkManager
-import com.github.leonardoxh.livedatacalladapter.Resource
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.fliker.data.model.ImageProperties
+import com.example.fliker.data.remote.ApiResponse
+import com.example.fliker.data.remote.NetworkManager
 
 class MyViewModel : ViewModel() {
     var listImages = MutableLiveData<List<String>>()
 
-    fun getImageFromServer():LiveData<Resource<ImageProperties>> {
+    fun getImageFromServer():LiveData<ApiResponse<ImageProperties>> {
         val hashMapQuery = hashMapOf(
             "api_key" to "1c04e05bce6e626247758d120b372a73",
             "method" to "flickr.photos.getPopular",

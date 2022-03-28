@@ -1,15 +1,13 @@
-package com.example.fliker
+package com.example.fliker.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fliker.data.remote.ApiErrorResponse
+import com.example.fliker.data.remote.ApiSuccessResponse
 import com.example.fliker.databinding.ActivityMainBinding
-import com.example.quizretrofit.RecyclerAdaptor
-import com.github.leonardoxh.livedatacalladapter.Resource
-import retrofit2.Response
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,15 +32,20 @@ class MainActivity : AppCompatActivity() {
         recyclerView = binding.rec
 
         viewModel.getImageFromServer().observe(this) { res ->
-            if (res.isSuccess){
+            if (res is ApiSuccessResponse) {
                 listImages.clear()
-                val newList:List<String>? = res.resource?.photos?.photo?.map {it->
+                val newList: List<String>? = res.body.photos.photo.map {
                     it.url_s
                 }
                 if (newList != null) {
                     listImages.addAll(newList)
                 }
                 recyclerAdaptor.notifyDataSetChanged()
+
+            }
+
+            else if (res is ApiErrorResponse) {
+                Log.d("TAG", "onCreate: ${res.errorMessage}")
             }
         }
 
