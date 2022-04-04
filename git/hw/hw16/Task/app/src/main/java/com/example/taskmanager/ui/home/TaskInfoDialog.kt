@@ -1,19 +1,14 @@
-package com.example.taskmanager.ui
+package com.example.taskmanager.ui.home
 
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.RadioGroup
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.net.toUri
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import coil.load
@@ -21,10 +16,9 @@ import com.example.taskmanager.App
 import com.example.taskmanager.R
 import com.example.taskmanager.data.model.SituationOfTask
 import com.example.taskmanager.data.model.Task
-import com.example.taskmanager.databinding.FragmentDoingBinding
 import com.example.taskmanager.databinding.FragmentTaskInfoBinding
-import com.example.taskmanager.ui.viewmodel.CustomViewModelFactory
-import com.example.taskmanager.ui.viewmodel.SharedViewModel
+import com.example.taskmanager.ui.home.viewmodel.CustomViewModelFactory
+import com.example.taskmanager.ui.home.viewmodel.SharedViewModel
 import java.io.ByteArrayOutputStream
 
 class TaskInfoDialog(val task: Task) : DialogFragment(R.layout.fragment_task_info) {
@@ -114,7 +108,7 @@ class TaskInfoDialog(val task: Task) : DialogFragment(R.layout.fragment_task_inf
     private fun editTime() {
         binding.textInputLayout3.setEndIconOnClickListener {
             val timeDialog = TimePickerDialog()
-            timeDialog.setGetTime(object : TimePickerDialog.GetTime{
+            timeDialog.setGetTime(object : TimePickerDialog.GetTime {
                 override fun getTimeFromDialog(time: String) {
                     task.time = time
                     binding.timeTaskInfo.setText(time)

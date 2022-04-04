@@ -14,7 +14,7 @@ interface DataSource {
     fun updateTask(task: Task)
     fun setImageForTask(task: Task)
     fun getAllTask(userName: String):LiveData<List<Task>>
-    fun searchQuery(searchQuery: String, situationOfTask: SituationOfTask): LiveData<List<Task>>
+    fun searchQuery(searchQuery: String): LiveData<List<Task>>
     //user
     fun addNewUser(user: User)
     fun deleteUser(user: User)

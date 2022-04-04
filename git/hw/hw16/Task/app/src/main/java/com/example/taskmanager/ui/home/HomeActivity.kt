@@ -1,10 +1,10 @@
-package com.example.taskmanager.ui
+package com.example.taskmanager.ui.home
 
-import AddDialogFragment
 import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import com.example.taskmanager.App
@@ -12,18 +12,25 @@ import com.example.taskmanager.R
 import com.example.taskmanager.data.UserNameClass
 import com.example.taskmanager.data.model.Task
 import com.example.taskmanager.databinding.ActivityHomeBinding
-import com.example.taskmanager.ui.viewmodel.CustomViewModelFactory
-import com.example.taskmanager.ui.viewmodel.SharedViewModel
+import com.example.taskmanager.ui.home.viewmodel.CustomViewModelFactory
+import com.example.taskmanager.ui.home.viewmodel.SharedViewModel
 import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayoutMediator
 
 class HomeActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     lateinit var binding: ActivityHomeBinding
 
+    var fragmentName = "TODO"
+
     private val viewModel: SharedViewModel by viewModels(factoryProducer = {
         CustomViewModelFactory((application as App).serviceLocator.repository)
     })
+
+    private lateinit var recyclerAdaptor: MyRecyclerAdaptor
+
+    private var searchResult = mutableListOf<Task>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +49,20 @@ class HomeActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         clickProfile()
 
         search()
+
+        setFragmentName()
+
+        recyclerAdaptor = MyRecyclerAdaptor(searchResult)
+
+        binding.homeRec.layoutManager = LinearLayoutManager(this)
+        binding.homeRec.adapter = recyclerAdaptor
+    }
+
+    private fun setFragmentName() {
+        viewModel.fragmentNameLiveData.observe(this){
+            fragmentName = it
+            binding.fragmentName = it
+        }
     }
 
     private fun search() {
@@ -49,6 +70,19 @@ class HomeActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         val searchView = search.actionView as SearchView
         searchView.isSubmitButtonEnabled = true
         searchView.setOnQueryTextListener(this)
+
+        searchView.setOnCloseListener {
+            binding.tabLayout.visibility = View.VISIBLE
+            binding.viewPager.visibility = View.VISIBLE
+            binding.homeRec.visibility = View.INVISIBLE
+            true
+        }
+
+        searchView.setOnSearchClickListener {
+            binding.tabLayout.visibility = View.INVISIBLE
+            binding.viewPager.visibility = View.INVISIBLE
+            binding.homeRec.visibility = View.VISIBLE
+        }
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
@@ -65,7 +99,9 @@ class HomeActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         val searchQuery = "%$query%"
 
         viewModel.searchQuery(searchQuery).observe(this){
-
+            searchResult.clear()
+            searchResult.addAll(it.filter { it1 -> it1.situationOfTask.toString() == fragmentName })
+            recyclerAdaptor.notifyDataSetChanged()
         }
     }
 

@@ -1,11 +1,8 @@
-package com.example.taskmanager.ui
+package com.example.taskmanager.ui.entry
 
-import AddDialogFragment
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.FragmentPagerAdapter
 import com.example.taskmanager.R
-import com.example.taskmanager.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 

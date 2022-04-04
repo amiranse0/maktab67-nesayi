@@ -1,14 +1,10 @@
-package com.example.taskmanager.ui
+package com.example.taskmanager.ui.home
 
 import android.os.Bundle
 import android.view.View
-import androidx.activity.viewModels
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.activityViewModels
 import com.example.taskmanager.R
 import com.example.taskmanager.databinding.FragmentDatePickerBinding
-import com.example.taskmanager.databinding.FragmentTimePickerBinding
-import com.example.taskmanager.ui.viewmodel.SharedViewModel
 
 class DatePickerDialog:DialogFragment(R.layout.fragment_date_picker) {
     private lateinit var binding:FragmentDatePickerBinding
@@ -21,7 +17,7 @@ class DatePickerDialog:DialogFragment(R.layout.fragment_date_picker) {
 
         binding.selectTimeButton.setOnClickListener {
             val date = binding.datePicker.let {
-                it.year.toString() + "/" + it.month.toString() + "/" + it.dayOfMonth.toString()
+                it.year.toString() + "/" + it.month.inc().toString() + "/" + it.dayOfMonth.toString()
             }
             getDate.getDateFromDialog(date)
             dismiss()

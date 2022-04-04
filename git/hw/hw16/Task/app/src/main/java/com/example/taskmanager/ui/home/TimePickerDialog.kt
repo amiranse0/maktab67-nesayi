@@ -1,4 +1,4 @@
-package com.example.taskmanager.ui
+package com.example.taskmanager.ui.home
 
 import android.os.Build
 import android.os.Bundle
@@ -10,7 +10,7 @@ import com.example.taskmanager.databinding.FragmentTimePickerBinding
 
 class TimePickerDialog:DialogFragment(R.layout.fragment_time_picker) {
 
-    private lateinit var getTime:GetTime
+    private lateinit var getTime: GetTime
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

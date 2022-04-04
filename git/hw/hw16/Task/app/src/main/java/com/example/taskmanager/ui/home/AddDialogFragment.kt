@@ -1,7 +1,8 @@
+package com.example.taskmanager.ui.home
+
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.activity.viewModels
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.example.taskmanager.App
@@ -10,10 +11,8 @@ import com.example.taskmanager.data.UserNameClass
 import com.example.taskmanager.data.model.SituationOfTask
 import com.example.taskmanager.data.model.Task
 import com.example.taskmanager.databinding.AddFragmentDialogBinding
-import com.example.taskmanager.ui.DatePickerDialog
-import com.example.taskmanager.ui.TimePickerDialog
-import com.example.taskmanager.ui.viewmodel.CustomViewModelFactory
-import com.example.taskmanager.ui.viewmodel.SharedViewModel
+import com.example.taskmanager.ui.home.viewmodel.CustomViewModelFactory
+import com.example.taskmanager.ui.home.viewmodel.SharedViewModel
 
 class AddDialogFragment : DialogFragment(R.layout.add_fragment_dialog) {
     private lateinit var binding: AddFragmentDialogBinding
@@ -37,7 +36,7 @@ class AddDialogFragment : DialogFragment(R.layout.add_fragment_dialog) {
 
     private fun createTask() {
 
-        var username = UserNameClass.username
+        val username = UserNameClass.username
 
         Log.d("TAG1", username)
 
@@ -65,6 +64,7 @@ class AddDialogFragment : DialogFragment(R.layout.add_fragment_dialog) {
             timeDialog.setGetTime(object : TimePickerDialog.GetTime {
                 override fun getTimeFromDialog(time: String) {
                     timePicked = time
+                    binding.timePickerButton.text = time
                 }
             })
         }
@@ -79,6 +79,7 @@ class AddDialogFragment : DialogFragment(R.layout.add_fragment_dialog) {
             dateDialog.setGetDate(object : DatePickerDialog.GetDate {
                 override fun getDateFromDialog(date: String) {
                     datePicked = date
+                    binding.datePickerButton.text = date
                 }
             })
         }

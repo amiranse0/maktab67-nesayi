@@ -20,4 +20,8 @@ data class Task(
     var situationOfTask: SituationOfTask,
     var picture:ByteArray? = null,
     val userUserName:String
-)
+){
+    override fun toString(): String {
+        return "title: $title \ndescription: $description \ndate: $date \ntime: $time"
+    }
+}

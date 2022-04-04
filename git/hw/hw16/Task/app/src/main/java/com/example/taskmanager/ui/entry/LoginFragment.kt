@@ -2,19 +2,15 @@ package com.example.taskmanager.ui.entry
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.taskmanager.App
 import com.example.taskmanager.R
-import com.example.taskmanager.data.model.User
 import com.example.taskmanager.databinding.FragmentLoginBinding
-import com.example.taskmanager.ui.HomeActivity
-import com.example.taskmanager.ui.viewmodel.CustomViewModelFactory
-import com.example.taskmanager.ui.viewmodel.SharedViewModel
+import com.example.taskmanager.ui.home.HomeActivity
+import com.example.taskmanager.ui.home.viewmodel.CustomViewModelFactory
 
 class LoginFragment:Fragment(R.layout.fragment_login) {
 

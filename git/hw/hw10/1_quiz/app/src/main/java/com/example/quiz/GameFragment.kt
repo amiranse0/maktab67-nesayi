@@ -37,7 +37,7 @@ class GameFragment:Fragment(R.layout.fragment_game) {
 
     private fun cheatFragment() {
         binding.cheatButton.setOnClickListener{
-            findNavController().navigate(R.id.action_gameFragment_to_cheatingFragment)
+            findNavController().navigate(GameFragmentDirections.actionGameFragmentToCheatingFragment())
         }
     }
 

@@ -10,8 +10,8 @@ import com.example.taskmanager.App
 import com.example.taskmanager.R
 import com.example.taskmanager.data.model.User
 import com.example.taskmanager.databinding.FragmentSignUpBinding
-import com.example.taskmanager.ui.HomeActivity
-import com.example.taskmanager.ui.viewmodel.CustomViewModelFactory
+import com.example.taskmanager.ui.home.HomeActivity
+import com.example.taskmanager.ui.home.viewmodel.CustomViewModelFactory
 
 class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
 

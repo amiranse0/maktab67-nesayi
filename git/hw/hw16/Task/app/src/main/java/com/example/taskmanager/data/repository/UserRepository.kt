@@ -49,8 +49,8 @@ class UserRepository(
         return localDataSource.getAllTask(userName)
     }
 
-    fun searchQuery(searchQuery: String, situationOfTask: SituationOfTask): LiveData<List<Task>>{
-        return localDataSource.searchQuery(searchQuery, situationOfTask)
+    fun searchQuery(searchQuery: String): LiveData<List<Task>>{
+        return localDataSource.searchQuery(searchQuery)
     }
 
     //users

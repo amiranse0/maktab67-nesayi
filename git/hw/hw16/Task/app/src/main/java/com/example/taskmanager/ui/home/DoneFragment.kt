@@ -1,11 +1,9 @@
-package com.example.taskmanager.ui
+package com.example.taskmanager.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.taskmanager.App
 import com.example.taskmanager.R
@@ -13,9 +11,8 @@ import com.example.taskmanager.data.UserNameClass
 import com.example.taskmanager.data.model.SituationOfTask
 import com.example.taskmanager.data.model.Task
 import com.example.taskmanager.databinding.FragmentDoneBinding
-import com.example.taskmanager.databinding.FragmentToDoBinding
-import com.example.taskmanager.ui.viewmodel.CustomViewModelFactory
-import com.example.taskmanager.ui.viewmodel.SharedViewModel
+import com.example.taskmanager.ui.home.viewmodel.CustomViewModelFactory
+import com.example.taskmanager.ui.home.viewmodel.SharedViewModel
 
 class DoneFragment:Fragment(R.layout.fragment_done) {
 
@@ -65,5 +62,10 @@ class DoneFragment:Fragment(R.layout.fragment_done) {
 
         binding.recyclerViewDone.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewDone.adapter = recyclerAdaptor
+    }
+
+    override fun onResume() {
+        viewModel.setFragmentName("DONE")
+        super.onResume()
     }
 }

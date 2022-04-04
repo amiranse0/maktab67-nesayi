@@ -1,10 +1,8 @@
-package com.example.taskmanager.ui.viewmodel
+package com.example.taskmanager.ui.home.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.taskmanager.data.UserNameClass
 import com.example.taskmanager.data.model.SituationOfTask
 import com.example.taskmanager.data.model.Task
 import com.example.taskmanager.data.repository.UserRepository
@@ -41,14 +39,8 @@ class SharedViewModel(private val repository: UserRepository) : ViewModel() {
         return repository.getAllTasks(username)
     }
 
-    fun searchQuery(searchSuery: String): LiveData<List<Task>>{
-        var situation = SituationOfTask.TODO
-        when(fragmentNameLiveData.value){
-            "DONE" -> situation = SituationOfTask.DONE
-            "DOING" -> situation = SituationOfTask.DOING
-            "TODO" -> situation = SituationOfTask.TODO
-        }
-        return repository.searchQuery(searchSuery,situation)
+    fun searchQuery(searchQuery: String): LiveData<List<Task>>{
+        return repository.searchQuery(searchQuery)
     }
 
 }
